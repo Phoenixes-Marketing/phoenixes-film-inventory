@@ -61,7 +61,7 @@
 
     .masthead-inner {
       display: grid;
-      grid-template-columns: 1fr minmax(260px, 420px);
+      grid-template-columns: 1fr minmax(360px, 520px);
       gap: 14px;
       align-items: end;
     }
@@ -86,6 +86,13 @@
     .search {
       position: relative;
       min-width: 0;
+    }
+
+    .header-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: stretch;
     }
 
     .search svg {
@@ -116,6 +123,64 @@
       border-color: rgba(0, 113, 227, 0.58);
       box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
       background: #fff;
+    }
+
+    .refresh-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--ink);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .refresh-button:hover {
+      background: #fff;
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    .refresh-button:focus-visible {
+      outline: none;
+      border-color: rgba(0, 113, 227, 0.58);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
+    }
+
+    .refresh-button:disabled {
+      cursor: wait;
+      opacity: 0.78;
+    }
+
+    .refresh-button svg {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+    }
+
+    .refresh-button[data-state="loading"] svg {
+      animation: spin 0.9s linear infinite;
+    }
+
+    .refresh-button[data-state="done"] {
+      color: var(--green);
+    }
+
+    .refresh-button[data-state="error"] {
+      color: var(--red);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .category-tabs {
@@ -463,6 +528,10 @@
         gap: 11px;
       }
 
+      .header-actions {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
       .meta {
         font-size: 14px;
       }
@@ -555,6 +624,15 @@
         padding-inline: 10px;
       }
 
+      .refresh-button {
+        width: 44px;
+        padding: 0;
+      }
+
+      .refresh-button span {
+        display: none;
+      }
+
       .category-section {
         border-radius: var(--radius);
       }
@@ -606,12 +684,20 @@
             <span id="result-count">-</span>
           </div>
         </div>
-        <label class="search">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、代號、規格">
-        </label>
+        <div class="header-actions">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、代號、規格">
+          </label>
+          <button class="refresh-button" id="refresh-data" type="button" title="重新整理庫存資料" aria-label="重新整理庫存資料">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16m0 0v5h5M3 12a9 9 0 0 1 15.5-6.2L21 8m0 0V3h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>重新整理</span>
+          </button>
+        </div>
       </div>
       <nav class="category-tabs" id="category-tabs" aria-label="分類篩選"></nav>
     </header>
@@ -622,7 +708,7 @@
   </main>
 
   <script>
-    const data = window.INVENTORY_DASHBOARD_DATA || {
+    let data = window.INVENTORY_DASHBOARD_DATA || {
       items: [],
       source: { reportDates: [], lastModified: "", filename: "" },
       warehouseOrder: ["台北倉", "台中倉", "台南倉", "高雄倉", "欣凱倉"],
@@ -677,6 +763,16 @@
         .replaceAll("'", "&#039;");
     }
 
+    function parseDashboardDataScript(text) {
+      const prefix = "window.INVENTORY_DASHBOARD_DATA = ";
+      const trimmed = String(text || "").trim();
+      if (!trimmed.startsWith(prefix)) {
+        throw new Error("Unexpected dashboard data format");
+      }
+      const json = trimmed.slice(prefix.length).replace(/;\s*$/, "");
+      return JSON.parse(json);
+    }
+
     function categoryNames() {
       const names = data.categoryRules.map((rule) => rule.category);
       for (const item of data.items) {
@@ -712,6 +808,7 @@
 
     function renderTabs() {
       const tabs = ["all", ...categoryNames()];
+      if (!tabs.includes(state.category)) state.category = "all";
       const tabRoot = document.getElementById("category-tabs");
       tabRoot.innerHTML = tabs.map((category) => {
         const label = category === "all" ? "全部" : category;
@@ -726,6 +823,43 @@
           renderContent();
         });
       });
+    }
+
+    async function refreshDashboardData() {
+      const button = document.getElementById("refresh-data");
+      const label = button.querySelector("span");
+      const defaultLabel = "重新整理";
+
+      button.disabled = true;
+      button.dataset.state = "loading";
+      if (label) label.textContent = "更新中";
+
+      try {
+        const response = await fetch(`./dashboard-data.js?refresh=${Date.now()}`, {
+          cache: "no-store"
+        });
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        data = parseDashboardDataScript(await response.text());
+        renderMeta();
+        renderTabs();
+        renderContent();
+
+        button.dataset.state = "done";
+        if (label) label.textContent = "已更新";
+      } catch (error) {
+        console.error(error);
+        button.dataset.state = "error";
+        if (label) label.textContent = "重試";
+      } finally {
+        button.disabled = false;
+        window.setTimeout(() => {
+          button.dataset.state = "";
+          if (label) label.textContent = defaultLabel;
+        }, 1800);
+      }
     }
 
     function itemTemplate(item) {
@@ -844,6 +978,8 @@
       state.query = event.target.value;
       renderContent();
     });
+
+    document.getElementById("refresh-data").addEventListener("click", refreshDashboardData);
 
     renderMeta();
     renderTabs();

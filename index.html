@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>封膜庫存監控</title>
+  <script src="./dashboard-data.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f5f5f7;
+      --surface: #ffffff;
+      --surface-soft: rgba(255, 255, 255, 0.78);
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --quiet: #9a9aa0;
+      --line: rgba(0, 0, 0, 0.09);
+      --line-strong: rgba(0, 0, 0, 0.16);
+      --blue: #0071e3;
+      --green: #12834c;
+      --amber: #b77900;
+      --red: #d70015;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+      --radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: linear-gradient(180deg, #fbfbfd 0, var(--page) 260px, #eeeeef 100%);
+      color: var(--ink);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .app {
+      width: min(1320px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 22px 0 42px;
+    }
+
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 12px 0 14px;
+      background: rgba(245, 245, 247, 0.82);
+      backdrop-filter: blur(20px);
+    }
+
+    .masthead-inner {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 420px);
+      gap: 14px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0 0 7px;
+      font-size: clamp(30px, 3.4vw, 42px);
+      line-height: 1.08;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 13px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .search {
+      position: relative;
+      min-width: 0;
+    }
+
+    .search svg {
+      position: absolute;
+      top: 50%;
+      left: 13px;
+      width: 17px;
+      height: 17px;
+      color: var(--muted);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .search input {
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 13px 10px 39px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      outline: none;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--ink);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+      font-size: 16px;
+    }
+
+    .search input:focus {
+      border-color: rgba(0, 113, 227, 0.58);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
+      background: #fff;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 4px 0 2px;
+      margin-top: 13px;
+      scrollbar-width: none;
+    }
+
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tabs button {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .category-tabs button[aria-pressed="true"] {
+      border-color: rgba(0, 113, 227, 0.25);
+      background: #1d1d1f;
+      color: #fff;
+      box-shadow: 0 9px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .category-section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .category-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+    }
+
+    .category-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      font-weight: 730;
+    }
+
+    .category-count {
+      color: var(--muted);
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .series {
+      padding: 16px 18px 18px;
+      background: var(--surface);
+    }
+
+    .series + .series {
+      border-top: 1px solid var(--line);
+    }
+
+    .series-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .series-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .series-title::before {
+      content: "";
+      width: 7px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .category-section:nth-child(2n) .series-title::before {
+      background: var(--green);
+    }
+
+    .category-section:nth-child(3n) .series-title::before {
+      background: var(--amber);
+    }
+
+    .series-count {
+      color: var(--muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .item-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .item-row,
+    .list-head {
+      display: grid;
+      grid-template-columns: minmax(260px, 1.7fr) repeat(5, minmax(78px, 0.54fr)) minmax(82px, 0.58fr);
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .list-head {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.25;
+      padding: 0 10px 7px;
+    }
+
+    .list-head .number-label {
+      text-align: right;
+    }
+
+    .item-row {
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .item-row:hover {
+      border-color: rgba(0, 0, 0, 0.16);
+      background: #fbfbfd;
+    }
+
+    .product-cell {
+      min-width: 0;
+      padding: 12px 13px;
+      border-right: 1px solid var(--line);
+    }
+
+    .product-name {
+      overflow-wrap: anywhere;
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .product-sub {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 9px;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .warehouse-cell {
+      display: grid;
+      align-content: center;
+      min-width: 0;
+      padding: 10px 9px;
+      border-right: 1px solid var(--line);
+      text-align: right;
+    }
+
+    .warehouse-label {
+      display: none;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .warehouse-value {
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .total-cell {
+      display: grid;
+      align-content: center;
+      padding: 10px 11px;
+      text-align: right;
+      background: #fafafa;
+    }
+
+    .total-label {
+      display: none;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .total-value {
+      font-size: 19px;
+      line-height: 1.1;
+      font-weight: 760;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stock-critical {
+      color: var(--red);
+    }
+
+    .stock-low {
+      color: var(--amber);
+    }
+
+    .stock-high {
+      color: var(--green);
+    }
+
+    .warehouse-cell-empty {
+      background: #fcfcfd;
+    }
+
+    .zero-row .product-name {
+      color: var(--muted);
+    }
+
+    .empty {
+      display: none;
+      min-height: 260px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .footer {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        width: min(100% - 24px, 1320px);
+        padding-top: 10px;
+      }
+
+      .masthead {
+        padding-top: 10px;
+      }
+
+      .masthead-inner {
+        grid-template-columns: 1fr;
+        gap: 11px;
+      }
+
+      .meta {
+        font-size: 14px;
+      }
+
+      .category-head {
+        align-items: start;
+        padding: 15px 14px 12px;
+      }
+
+      .category-title {
+        font-size: 20px;
+      }
+
+      .series {
+        padding: 14px;
+      }
+
+      .list-head {
+        display: none;
+      }
+
+      .item-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        min-height: 0;
+      }
+
+      .product-cell {
+        grid-column: 1 / -1;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 12px;
+      }
+
+      .warehouse-cell,
+      .total-cell {
+        display: grid;
+        width: auto;
+        min-height: 58px;
+        padding: 9px 10px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+      }
+
+      .warehouse-cell:nth-last-child(2) {
+        border-right: 1px solid var(--line);
+      }
+
+      .warehouse-label,
+      .total-label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .warehouse-value,
+      .total-value {
+        font-size: 18px;
+      }
+
+      .total-cell {
+        background: #f7f7f8;
+      }
+
+      .warehouse-cell-empty {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        background: #f5f5f7;
+      }
+
+      .app {
+        width: min(100% - 18px, 1320px);
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .category-tabs {
+        margin-right: -9px;
+        padding-right: 9px;
+      }
+
+      .category-tabs button {
+        min-height: 33px;
+        padding-inline: 10px;
+      }
+
+      .category-section {
+        border-radius: var(--radius);
+      }
+
+      .category-head {
+        display: block;
+      }
+
+      .category-count {
+        display: block;
+        margin-top: 6px;
+      }
+
+      .series-head {
+        align-items: start;
+      }
+
+      .warehouse-cell,
+      .total-cell {
+        width: auto;
+      }
+
+      .item-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .warehouse-cell:nth-child(3),
+      .warehouse-cell:nth-child(5) {
+        border-right: 0;
+      }
+
+      .total-cell {
+        width: auto;
+        grid-column: 1 / -1;
+        border-right: 0;
+        border-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div class="masthead-inner">
+        <div>
+          <h1>封膜庫存監控</h1>
+          <div class="meta">
+            <span id="report-date">報表日期：-</span>
+            <span id="updated-at">更新：-</span>
+            <span id="result-count">-</span>
+          </div>
+        </div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、代號、規格">
+        </label>
+      </div>
+      <nav class="category-tabs" id="category-tabs" aria-label="分類篩選"></nav>
+    </header>
+
+    <section class="content" id="content" aria-label="產品分類庫存"></section>
+    <div class="empty" id="empty-state">沒有符合條件的品項</div>
+    <footer class="footer" id="footer"></footer>
+  </main>
+
+  <script>
+    const data = window.INVENTORY_DASHBOARD_DATA || {
+      items: [],
+      source: { reportDates: [], lastModified: "", filename: "" },
+      warehouseOrder: ["台北倉", "台中倉", "台南倉", "高雄倉", "欣凱倉"],
+      warehouseLabels: {},
+      categoryRules: []
+    };
+
+    const state = {
+      query: "",
+      category: "all"
+    };
+
+    const numberFormatter = new Intl.NumberFormat("zh-Hant-TW", {
+      maximumFractionDigits: 2
+    });
+
+    const dateFormatter = new Intl.DateTimeFormat("zh-Hant-TW", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    function formatNumber(value) {
+      const number = Number(value || 0);
+      return numberFormatter.format(Math.round(number * 100) / 100);
+    }
+
+    function formatDateTime(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value || "-";
+      return dateFormatter.format(date);
+    }
+
+    function stockClass(value, item) {
+      const number = Number(value || 0);
+      const rule = item?.stockRule || {};
+      const criticalAt = Number(rule.criticalAt ?? 20);
+      const warningBelow = Number(rule.warningBelow ?? 40);
+      if (number <= criticalAt) return "stock-critical";
+      if (number < warningBelow) return "stock-low";
+      return "stock-high";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function categoryNames() {
+      const names = data.categoryRules.map((rule) => rule.category);
+      for (const item of data.items) {
+        if (!names.includes(item.category)) names.push(item.category);
+      }
+      return names;
+    }
+
+    function matchesQuery(item) {
+      const query = state.query.trim().toLocaleLowerCase("zh-Hant-TW");
+      if (!query) return true;
+      const haystack = `${item.code} ${item.name} ${item.spec} ${item.category} ${item.series}`.toLocaleLowerCase("zh-Hant-TW");
+      return haystack.includes(query);
+    }
+
+    function visibleItems() {
+      return data.items.filter((item) => {
+        if (state.category !== "all" && item.category !== state.category) return false;
+        return matchesQuery(item);
+      });
+    }
+
+    function itemsFor(category, series) {
+      return visibleItems().filter((item) => item.category === category && item.series === series);
+    }
+
+    function renderMeta() {
+      const source = data.source || {};
+      const dates = source.reportDates || [];
+      document.getElementById("report-date").textContent = `報表日期：${dates.join("、") || "-"}`;
+      document.getElementById("updated-at").textContent = `更新：${formatDateTime(source.lastModified)}`;
+      document.getElementById("footer").textContent = `資料來源：${source.filename || "-"}，產生時間：${formatDateTime(data.generatedAt)}。`;
+    }
+
+    function renderTabs() {
+      const tabs = ["all", ...categoryNames()];
+      const tabRoot = document.getElementById("category-tabs");
+      tabRoot.innerHTML = tabs.map((category) => {
+        const label = category === "all" ? "全部" : category;
+        const pressed = category === state.category;
+        return `<button type="button" data-category="${escapeHtml(category)}" aria-pressed="${pressed}">${escapeHtml(label)}</button>`;
+      }).join("");
+
+      tabRoot.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.category = button.dataset.category;
+          renderTabs();
+          renderContent();
+        });
+      });
+    }
+
+    function itemTemplate(item) {
+      const warehouseCells = data.warehouseOrder.map((warehouse) => {
+        const value = item.warehouses[warehouse] || 0;
+        const label = data.warehouseLabels[warehouse] || warehouse;
+        if (warehouse === "欣凱倉" && Number(value || 0) === 0) {
+          return `<div class="warehouse-cell warehouse-cell-empty" aria-label="${escapeHtml(label)} 0"></div>`;
+        }
+        return `
+          <div class="warehouse-cell">
+            <span class="warehouse-label">${escapeHtml(label)}</span>
+            <span class="warehouse-value ${stockClass(value, item)}">${formatNumber(value)}</span>
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <article class="item-row ${Number(item.visibleTotal || 0) === 0 ? "zero-row" : ""}">
+          <div class="product-cell">
+            <div class="product-name">${escapeHtml(item.name)}</div>
+            <div class="product-sub">
+              <span>${escapeHtml(item.code)}</span>
+              <span>${escapeHtml(item.spec || "-")}</span>
+            </div>
+          </div>
+          ${warehouseCells}
+          <div class="total-cell">
+            <span class="total-label">合計</span>
+            <span class="total-value ${stockClass(item.visibleTotal, item)}">${formatNumber(item.visibleTotal)}</span>
+          </div>
+        </article>
+      `;
+    }
+
+    function seriesTemplate(categoryName, series) {
+      const items = itemsFor(categoryName, series.name);
+      if (!items.length) return "";
+      const headLabels = data.warehouseOrder.map((warehouse) => {
+        const label = data.warehouseLabels[warehouse] || warehouse;
+        return `<div class="number-label">${escapeHtml(label)}</div>`;
+      }).join("");
+
+      return `
+        <section class="series">
+          <div class="series-head">
+            <h3 class="series-title">${escapeHtml(series.name)}</h3>
+            <span class="series-count">${formatNumber(items.length)} 項</span>
+          </div>
+          <div class="list-head">
+            <div>品項</div>
+            ${headLabels}
+            <div class="number-label">合計</div>
+          </div>
+          <div class="item-list">
+            ${items.map(itemTemplate).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function uncategorizedRules() {
+      const known = new Set(data.categoryRules.map((rule) => rule.category));
+      const extras = categoryNames().filter((name) => !known.has(name));
+      return extras.map((category) => ({
+        category,
+        series: [{ name: "未分類", items: [] }]
+      }));
+    }
+
+    function renderContent() {
+      const search = document.getElementById("search");
+      if (search) state.query = search.value;
+
+      const allVisible = visibleItems();
+      const root = document.getElementById("content");
+      const empty = document.getElementById("empty-state");
+      const rules = [...data.categoryRules, ...uncategorizedRules()];
+
+      document.getElementById("result-count").textContent = `${formatNumber(allVisible.length)} 項`;
+
+      const html = rules.map((categoryRule) => {
+        if (state.category !== "all" && state.category !== categoryRule.category) return "";
+
+        const categoryItems = allVisible.filter((item) => item.category === categoryRule.category);
+        if (!categoryItems.length) return "";
+
+        const seriesHtml = categoryRule.series
+          .map((series) => seriesTemplate(categoryRule.category, series))
+          .join("");
+
+        if (!seriesHtml.trim()) return "";
+
+        return `
+          <section class="category-section">
+            <header class="category-head">
+              <h2 class="category-title">${escapeHtml(categoryRule.category)}</h2>
+              <span class="category-count">${formatNumber(categoryItems.length)} 項</span>
+            </header>
+            ${seriesHtml}
+          </section>
+        `;
+      }).join("");
+
+      root.innerHTML = html;
+      empty.style.display = allVisible.length ? "none" : "grid";
+    }
+
+    document.getElementById("search").addEventListener("input", (event) => {
+      state.query = event.target.value;
+      renderContent();
+    });
+
+    document.getElementById("search").addEventListener("search", (event) => {
+      state.query = event.target.value;
+      renderContent();
+    });
+
+    renderMeta();
+    renderTabs();
+    renderContent();
+  </script>
+</body>
+</html>

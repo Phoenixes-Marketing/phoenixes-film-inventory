@@ -10,6 +10,20 @@
 2. 執行 `python scripts\build_dashboard.py` 更新 `public\dashboard-data.js`。
 3. 用 `scripts\start_dashboard.ps1` 啟動本機預覽。
 
+線上更新：
+
+1. 將 ERP 分庫狀況表匯出成 `.xlsx`，放在來源資料夾。
+2. 雙擊 `update-online-inventory.cmd`。
+3. 等視窗顯示「線上網站已顯示最新資料」。
+
+線上網址：
+
+`https://phoenixes-marketing.github.io/phoenixes-film-inventory/`
+
+詳細一鍵更新流程：
+
+`docs\online-update.md`
+
 本機預覽：
 
 ```powershell

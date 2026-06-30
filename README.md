@@ -24,6 +24,12 @@
 
 `docs\online-update.md`
 
+如需重建桌面與開始功能表捷徑：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\create_shortcuts.ps1
+```
+
 本機預覽：
 
 ```powershell

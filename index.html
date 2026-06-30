@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>封膜庫存監控</title>
+  <title>封王封膜庫存監控</title>
   <script src="./dashboard-data.js"></script>
   <style>
     :root {
@@ -21,6 +21,8 @@
       --green: #12834c;
       --amber: #b77900;
       --red: #d70015;
+      --teal: #007a70;
+      --violet: #6b5dd3;
       --shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
       --radius: 8px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
@@ -155,11 +157,32 @@
     }
 
     .category-section {
+      --category-accent: var(--blue);
+      --category-soft: #eef6ff;
+      --category-line: rgba(0, 113, 227, 0.18);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface-soft);
       box-shadow: var(--shadow);
       overflow: hidden;
+    }
+
+    .category-tone-1 {
+      --category-accent: var(--teal);
+      --category-soft: #eefaf7;
+      --category-line: rgba(0, 122, 112, 0.18);
+    }
+
+    .category-tone-2 {
+      --category-accent: #a66a00;
+      --category-soft: #fff7e8;
+      --category-line: rgba(166, 106, 0, 0.2);
+    }
+
+    .category-tone-3 {
+      --category-accent: var(--violet);
+      --category-soft: #f4f2ff;
+      --category-line: rgba(107, 93, 211, 0.18);
     }
 
     .category-head {
@@ -168,8 +191,9 @@
       gap: 12px;
       align-items: end;
       padding: 18px 18px 14px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.84);
+      border-top: 3px solid var(--category-accent);
+      border-bottom: 1px solid var(--category-line);
+      background: linear-gradient(90deg, var(--category-soft) 0, rgba(255, 255, 255, 0.9) 72%);
     }
 
     .category-title {
@@ -181,6 +205,10 @@
     }
 
     .category-count {
+      padding: 4px 9px;
+      border: 1px solid var(--category-line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
       color: var(--muted);
       font-size: 15px;
       white-space: nowrap;
@@ -188,7 +216,7 @@
 
     .series {
       padding: 16px 18px 18px;
-      background: var(--surface);
+      background: linear-gradient(180deg, #fff 0, #fff 58%, rgba(250, 250, 250, 0.86) 100%);
     }
 
     .series + .series {
@@ -201,6 +229,10 @@
       gap: 12px;
       align-items: center;
       margin-bottom: 10px;
+      padding: 9px 10px;
+      border: 1px solid var(--category-line);
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, var(--category-soft), rgba(255, 255, 255, 0.78));
     }
 
     .series-title {
@@ -218,15 +250,7 @@
       width: 7px;
       height: 20px;
       border-radius: 999px;
-      background: var(--blue);
-    }
-
-    .category-section:nth-child(2n) .series-title::before {
-      background: var(--green);
-    }
-
-    .category-section:nth-child(3n) .series-title::before {
-      background: var(--amber);
+      background: var(--category-accent);
     }
 
     .series-count {
@@ -253,11 +277,16 @@
       font-size: 14px;
       font-weight: 650;
       line-height: 1.25;
-      padding: 0 10px 7px;
+      padding: 0 0 7px;
     }
 
     .list-head .number-label {
       text-align: right;
+    }
+
+    .list-head > div {
+      padding: 5px 10px;
+      border-radius: 6px;
     }
 
     .item-row {
@@ -303,6 +332,46 @@
       padding: 10px 9px;
       border-right: 1px solid var(--line);
       text-align: right;
+    }
+
+    .warehouse-tone-0 {
+      background: rgba(0, 113, 227, 0.035);
+    }
+
+    .warehouse-tone-1 {
+      background: rgba(0, 122, 112, 0.04);
+    }
+
+    .warehouse-tone-2 {
+      background: rgba(166, 106, 0, 0.045);
+    }
+
+    .warehouse-tone-3 {
+      background: rgba(107, 93, 211, 0.035);
+    }
+
+    .warehouse-tone-4 {
+      background: rgba(29, 29, 31, 0.032);
+    }
+
+    .list-head .warehouse-tone-0 {
+      background: rgba(0, 113, 227, 0.075);
+    }
+
+    .list-head .warehouse-tone-1 {
+      background: rgba(0, 122, 112, 0.078);
+    }
+
+    .list-head .warehouse-tone-2 {
+      background: rgba(166, 106, 0, 0.085);
+    }
+
+    .list-head .warehouse-tone-3 {
+      background: rgba(107, 93, 211, 0.075);
+    }
+
+    .list-head .warehouse-tone-4 {
+      background: rgba(29, 29, 31, 0.062);
     }
 
     .warehouse-label {
@@ -531,10 +600,9 @@
     <header class="masthead">
       <div class="masthead-inner">
         <div>
-          <h1>封膜庫存監控</h1>
+          <h1>封王封膜庫存監控</h1>
           <div class="meta">
-            <span id="report-date">報表日期：-</span>
-            <span id="updated-at">更新：-</span>
+            <span id="source-updated-at">檔案修改：-</span>
             <span id="result-count">-</span>
           </div>
         </div>
@@ -637,10 +705,9 @@
 
     function renderMeta() {
       const source = data.source || {};
-      const dates = source.reportDates || [];
-      document.getElementById("report-date").textContent = `報表日期：${dates.join("、") || "-"}`;
-      document.getElementById("updated-at").textContent = `更新：${formatDateTime(source.lastModified)}`;
-      document.getElementById("footer").textContent = `資料來源：${source.filename || "-"}，產生時間：${formatDateTime(data.generatedAt)}。`;
+      const sourceTime = formatDateTime(source.lastModified);
+      document.getElementById("source-updated-at").textContent = `檔案修改：${sourceTime}`;
+      document.getElementById("footer").textContent = `資料來源：${source.filename || "-"}，檔案修改時間：${sourceTime}。`;
     }
 
     function renderTabs() {
@@ -662,14 +729,15 @@
     }
 
     function itemTemplate(item) {
-      const warehouseCells = data.warehouseOrder.map((warehouse) => {
+      const warehouseCells = data.warehouseOrder.map((warehouse, index) => {
         const value = item.warehouses[warehouse] || 0;
         const label = data.warehouseLabels[warehouse] || warehouse;
+        const toneClass = `warehouse-tone-${index % 5}`;
         if (warehouse === "欣凱倉" && Number(value || 0) === 0) {
-          return `<div class="warehouse-cell warehouse-cell-empty" aria-label="${escapeHtml(label)} 0"></div>`;
+          return `<div class="warehouse-cell warehouse-cell-empty ${toneClass}" aria-label="${escapeHtml(label)} 0"></div>`;
         }
         return `
-          <div class="warehouse-cell">
+          <div class="warehouse-cell ${toneClass}">
             <span class="warehouse-label">${escapeHtml(label)}</span>
             <span class="warehouse-value ${stockClass(value, item)}">${formatNumber(value)}</span>
           </div>
@@ -697,9 +765,9 @@
     function seriesTemplate(categoryName, series) {
       const items = itemsFor(categoryName, series.name);
       if (!items.length) return "";
-      const headLabels = data.warehouseOrder.map((warehouse) => {
+      const headLabels = data.warehouseOrder.map((warehouse, index) => {
         const label = data.warehouseLabels[warehouse] || warehouse;
-        return `<div class="number-label">${escapeHtml(label)}</div>`;
+        return `<div class="number-label warehouse-tone-${index % 5}">${escapeHtml(label)}</div>`;
       }).join("");
 
       return `
@@ -740,7 +808,7 @@
 
       document.getElementById("result-count").textContent = `${formatNumber(allVisible.length)} 項`;
 
-      const html = rules.map((categoryRule) => {
+      const html = rules.map((categoryRule, categoryIndex) => {
         if (state.category !== "all" && state.category !== categoryRule.category) return "";
 
         const categoryItems = allVisible.filter((item) => item.category === categoryRule.category);
@@ -753,7 +821,7 @@
         if (!seriesHtml.trim()) return "";
 
         return `
-          <section class="category-section">
+          <section class="category-section category-tone-${categoryIndex % 4}">
             <header class="category-head">
               <h2 class="category-title">${escapeHtml(categoryRule.category)}</h2>
               <span class="category-count">${formatNumber(categoryItems.length)} 項</span>

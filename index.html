@@ -25,7 +25,7 @@
       --violet: #6b5dd3;
       --shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
       --radius: 8px;
-      --mobile-sticky-actions-height: 58px;
+      --mobile-sticky-actions-height: 84px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     }
 
@@ -93,7 +93,13 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 8px;
-      align-items: stretch;
+      align-items: start;
+    }
+
+    .search-stack {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
     }
 
     .search svg {
@@ -124,6 +130,16 @@
       border-color: rgba(0, 113, 227, 0.58);
       box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
       background: #fff;
+    }
+
+    .source-line {
+      min-height: 17px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .refresh-button {
@@ -507,13 +523,6 @@
       font-size: 16px;
     }
 
-    .footer {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
     @media (max-width: 900px) {
       .app {
         width: min(100% - 24px, 1320px);
@@ -544,6 +553,11 @@
         padding: calc(8px + env(safe-area-inset-top)) 0 8px;
         background: rgba(245, 245, 247, 0.9);
         backdrop-filter: blur(20px);
+      }
+
+      .source-line {
+        padding-left: 2px;
+        font-size: 12px;
       }
 
       .category-tabs {
@@ -704,17 +718,19 @@
         <div class="masthead-title">
           <h1>封王封膜庫存監控</h1>
           <div class="meta">
-            <span id="source-updated-at">檔案修改：-</span>
             <span id="result-count">-</span>
           </div>
         </div>
         <div class="header-actions">
-          <label class="search">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、代號、規格">
-          </label>
+          <div class="search-stack">
+            <label class="search">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、規格">
+            </label>
+            <div class="source-line" id="source-line">資料來源：-</div>
+          </div>
           <button class="refresh-button" id="refresh-data" type="button" title="重新整理庫存資料" aria-label="重新整理庫存資料">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16m0 0v5h5M3 12a9 9 0 0 1 15.5-6.2L21 8m0 0V3h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -728,7 +744,6 @@
 
     <section class="content" id="content" aria-label="產品分類庫存"></section>
     <div class="empty" id="empty-state">沒有符合條件的品項</div>
-    <footer class="footer" id="footer"></footer>
   </main>
 
   <script>
@@ -808,7 +823,7 @@
     function matchesQuery(item) {
       const query = state.query.trim().toLocaleLowerCase("zh-Hant-TW");
       if (!query) return true;
-      const haystack = `${item.code} ${item.name} ${item.spec} ${item.category} ${item.series}`.toLocaleLowerCase("zh-Hant-TW");
+      const haystack = `${item.name} ${item.spec}`.toLocaleLowerCase("zh-Hant-TW");
       return haystack.includes(query);
     }
 
@@ -826,8 +841,7 @@
     function renderMeta() {
       const source = data.source || {};
       const sourceTime = formatDateTime(source.lastModified);
-      document.getElementById("source-updated-at").textContent = `檔案修改：${sourceTime}`;
-      document.getElementById("footer").textContent = `資料來源：${source.filename || "-"}，檔案修改時間：${sourceTime}。`;
+      document.getElementById("source-line").textContent = `資料來源：${source.filename || "-"}，檔案修改：${sourceTime}`;
     }
 
     function renderTabs() {

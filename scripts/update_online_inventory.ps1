@@ -27,7 +27,9 @@ $DataFile = Join-Path $PublicAppDir "dashboard-data.js"
 $PurchaseAlertDataFile = Join-Path $PublicAppDir "purchase-alert-data.js"
 $BuildScript = Join-Path $ProjectRoot "scripts\build_dashboard.py"
 $PurchaseAlertBuildScript = Join-Path $ProjectRoot "scripts\build_purchase_alerts.py"
-$PurchaseAlertSettingsFile = Join-Path $ProjectRoot "data\採購提醒設定.xlsx"
+$PurchaseAlertSettingsName = [string][char]0x63A1 + [string][char]0x8CFC + [string][char]0x63D0 + [string][char]0x9192 + [string][char]0x8A2D + [string][char]0x5B9A + ".xlsx"
+$PurchaseAlertSettingsRelativePath = "data/$PurchaseAlertSettingsName"
+$PurchaseAlertSettingsFile = Join-Path $ProjectRoot ("data\$PurchaseAlertSettingsName")
 $DeployDir = Join-Path $ProjectRoot ".deploy\gh-pages"
 $LogDir = Join-Path $ProjectRoot "logs"
 $LiveUrl = "https://phoenixes-marketing.github.io/phoenixes-film-inventory/"
@@ -210,7 +212,7 @@ function Commit-And-Push-MainIfNeeded {
     $dataPaths = @(
         "public/phoenixes-film-inventory/dashboard-data.js",
         "public/phoenixes-film-inventory/purchase-alert-data.js",
-        "data/採購提醒設定.xlsx"
+        $PurchaseAlertSettingsRelativePath
     )
     $changes = @(Get-GitOutput -Arguments (@("status", "--porcelain", "--") + $dataPaths))
     if ($changes.Count -eq 0) {

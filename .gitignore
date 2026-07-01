@@ -10,5 +10,6 @@
 
 # misc
 .DS_Store
+~$*.xlsx
 *.pem
 .env*

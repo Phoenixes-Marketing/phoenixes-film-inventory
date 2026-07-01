@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>封王封膜庫存監控</title>
   <script src="./dashboard-data.js"></script>
+  <script src="./purchase-alert-data.js"></script>
   <style>
     :root {
       color-scheme: light;
@@ -239,6 +240,78 @@
       box-shadow: 0 9px 24px rgba(0, 0, 0, 0.12);
     }
 
+    .category-tabs button[data-tone="public"] {
+      border-color: rgba(74, 144, 226, 0.22);
+      background: linear-gradient(135deg, rgba(246, 251, 255, 0.92), rgba(220, 239, 255, 0.92));
+      color: #17385f;
+    }
+
+    .category-tabs button[data-tone="special"] {
+      border-color: rgba(72, 176, 142, 0.2);
+      background: linear-gradient(135deg, rgba(245, 255, 250, 0.94), rgba(214, 244, 235, 0.92));
+      color: #123f35;
+    }
+
+    .category-tabs button[data-tone="sakura"] {
+      border-color: rgba(174, 112, 221, 0.18);
+      background: linear-gradient(135deg, rgba(253, 247, 255, 0.94), rgba(255, 228, 243, 0.92));
+      color: #41234f;
+    }
+
+    .category-tabs button[data-tone][aria-pressed="true"] {
+      box-shadow: 0 10px 24px rgba(33, 54, 82, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .category-tabs button[data-tone="public"][aria-pressed="true"] {
+      border-color: rgba(74, 144, 226, 0.36);
+      background: linear-gradient(135deg, #f0f8ff 0%, #cfe8ff 100%);
+      color: #0f3154;
+    }
+
+    .category-tabs button[data-tone="special"][aria-pressed="true"] {
+      border-color: rgba(72, 176, 142, 0.34);
+      background: linear-gradient(135deg, #effdf7 0%, #c8efe2 100%);
+      color: #0f3a31;
+    }
+
+    .category-tabs button[data-tone="sakura"][aria-pressed="true"] {
+      border-color: rgba(174, 112, 221, 0.3);
+      background: linear-gradient(135deg, #fcf2ff 0%, #ffdbe9 100%);
+      color: #3c214a;
+    }
+
+    .category-tabs button[data-alert-filter="watch"] {
+      border-color: rgba(218, 149, 48, 0.28);
+      background: linear-gradient(135deg, #fff9e8 0%, #ffe7b0 100%);
+      color: #4b3300;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+    }
+
+    .category-tabs button[data-alert-filter="order"] {
+      border-color: rgba(212, 76, 104, 0.28);
+      background: linear-gradient(135deg, #fff0f3 0%, #ffd1da 100%);
+      color: #5b1020;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .category-tabs button[data-alert-filter="watch"][aria-pressed="true"] {
+      border-color: rgba(218, 149, 48, 0.4);
+      background: linear-gradient(135deg, #fff4d2 0%, #ffd989 100%);
+      color: #3b2900;
+      box-shadow: 0 11px 24px rgba(222, 154, 55, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .category-tabs button[data-alert-filter="order"][aria-pressed="true"] {
+      border-color: rgba(212, 76, 104, 0.4);
+      background: linear-gradient(135deg, #ffe6ec 0%, #ffb7c5 100%);
+      color: #4f0d1b;
+      box-shadow: 0 11px 24px rgba(212, 76, 104, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.48);
+    }
+
+    .tab-count {
+      opacity: 0.78;
+    }
+
     .content {
       display: grid;
       gap: 18px;
@@ -412,6 +485,41 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.3;
+    }
+
+    .purchase-alerts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .purchase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 25px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 700;
+      max-width: 100%;
+      white-space: normal;
+    }
+
+    .purchase-badge-watch {
+      border: 1px solid rgba(218, 149, 48, 0.24);
+      background: linear-gradient(135deg, #fff9e8 0%, #ffe7b0 100%);
+      color: #4b3300;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+    }
+
+    .purchase-badge-order {
+      border: 1px solid rgba(212, 76, 104, 0.24);
+      background: linear-gradient(135deg, #fff0f3 0%, #ffd1da 100%);
+      color: #5b1020;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48);
     }
 
     .warehouse-cell {
@@ -755,7 +863,7 @@
               <span>重新整理</span>
             </button>
           </div>
-          <nav class="category-tabs" id="category-tabs" aria-label="分類篩選"></nav>
+          <nav class="category-tabs" id="category-tabs" aria-label="分類與採購提醒篩選"></nav>
         </div>
       </div>
     </header>
@@ -772,10 +880,15 @@
       warehouseLabels: {},
       categoryRules: []
     };
+    const purchaseAlertSettings = window.PURCHASE_ALERT_SETTINGS || {
+      settings: {},
+      summary: {}
+    };
 
     const state = {
       query: "",
-      category: "all"
+      category: "all",
+      alertFilter: "all"
     };
 
     const numberFormatter = new Intl.NumberFormat("zh-Hant-TW", {
@@ -845,11 +958,67 @@
       return haystack.includes(query);
     }
 
+    function purchaseAlertForItem(item) {
+      const setting = purchaseAlertSettings.settings?.[item.name];
+      if (!setting || setting.enabled === false) {
+        return { level: "normal", alerts: [] };
+      }
+
+      const alerts = [];
+      for (const warehouse of data.warehouseOrder) {
+        const thresholds = setting.thresholds?.[warehouse];
+        if (!thresholds) continue;
+
+        const value = Number(item.warehouses?.[warehouse] || 0);
+        const label = data.warehouseLabels?.[warehouse] || warehouse;
+        const order = Number(thresholds.order || 0);
+        const watch = Number(thresholds.watch || 0);
+
+        if (order > 0 && value < order) {
+          alerts.push({ level: "order", label, value, threshold: order });
+        } else if (watch > 0 && value < watch) {
+          alerts.push({ level: "watch", label, value, threshold: watch });
+        }
+      }
+
+      const total = setting.total || {};
+      const visibleTotal = Number(item.visibleTotal || 0);
+      const totalOrder = Number(total.order || 0);
+      const totalWatch = Number(total.watch || 0);
+      if (totalOrder > 0 && visibleTotal < totalOrder) {
+        alerts.push({ level: "order", label: "合計", value: visibleTotal, threshold: totalOrder });
+      } else if (totalWatch > 0 && visibleTotal < totalWatch) {
+        alerts.push({ level: "watch", label: "合計", value: visibleTotal, threshold: totalWatch });
+      }
+
+      alerts.sort((a, b) => (a.level === "order" ? 0 : 1) - (b.level === "order" ? 0 : 1));
+      const level = alerts.some((alert) => alert.level === "order")
+        ? "order"
+        : alerts.length
+          ? "watch"
+          : "normal";
+      return { level, alerts };
+    }
+
+    function matchesAlertFilter(item) {
+      if (state.alertFilter === "all") return true;
+      const alert = purchaseAlertForItem(item);
+      if (state.alertFilter === "order") return alert.level === "order";
+      if (state.alertFilter === "watch") return alert.level === "order" || alert.level === "watch";
+      return true;
+    }
+
+    function searchItems() {
+      return data.items.filter(matchesQuery);
+    }
+
+    function baseItems() {
+      return searchItems().filter((item) => state.category === "all" || item.category === state.category);
+    }
+
     function visibleItems() {
-      return data.items.filter((item) => {
-        if (state.category !== "all" && item.category !== state.category) return false;
-        return matchesQuery(item);
-      });
+      const items = state.alertFilter === "all" ? baseItems() : searchItems();
+      return items.filter(matchesAlertFilter);
     }
 
     function itemsFor(category, series) {
@@ -863,19 +1032,53 @@
       document.getElementById("source-modified").textContent = `檔案修改：${sourceTime}`;
     }
 
-    function renderTabs() {
-      const tabs = ["all", ...categoryNames()];
-      if (!tabs.includes(state.category)) state.category = "all";
-      const tabRoot = document.getElementById("category-tabs");
-      tabRoot.innerHTML = tabs.map((category) => {
-        const label = category === "all" ? "全部" : category;
-        const pressed = category === state.category;
-        return `<button type="button" data-category="${escapeHtml(category)}" aria-pressed="${pressed}">${escapeHtml(label)}</button>`;
-      }).join("");
+    function categoryTone(category) {
+      if (category === "金山公版") return "public";
+      if (category === "金山/欣凱/佑泰專板") return "special";
+      if (category === "三櫻系列") return "sakura";
+      return "";
+    }
 
-      tabRoot.querySelectorAll("button").forEach((button) => {
+    function renderTabs() {
+      const categories = ["all", ...categoryNames()];
+      if (!categories.includes(state.category)) state.category = "all";
+      const items = searchItems();
+      const watchCount = items.filter((item) => {
+        const alert = purchaseAlertForItem(item);
+        return alert.level === "order" || alert.level === "watch";
+      }).length;
+      const orderCount = items.filter((item) => purchaseAlertForItem(item).level === "order").length;
+      const alertTabs = [
+        { value: "watch", label: "觀察中", count: watchCount },
+        { value: "order", label: "需採購", count: orderCount },
+      ];
+      const tabRoot = document.getElementById("category-tabs");
+      const categoryButtons = categories.map((category) => {
+        const label = category === "all" ? "全部" : category;
+        const pressed = state.alertFilter === "all" && category === state.category;
+        const tone = categoryTone(category);
+        const toneAttribute = tone ? ` data-tone="${tone}"` : "";
+        return `<button type="button" data-category="${escapeHtml(category)}"${toneAttribute} aria-pressed="${pressed}">${escapeHtml(label)}</button>`;
+      });
+      const alertButtons = alertTabs.map((tab) => {
+        const pressed = tab.value === state.alertFilter;
+        return `<button type="button" data-alert-filter="${tab.value}" aria-pressed="${pressed}">${tab.label} <span class="tab-count">${formatNumber(tab.count)}</span></button>`;
+      });
+      tabRoot.innerHTML = [...categoryButtons, ...alertButtons].join("");
+
+      tabRoot.querySelectorAll("[data-category]").forEach((button) => {
         button.addEventListener("click", () => {
           state.category = button.dataset.category;
+          state.alertFilter = "all";
+          renderTabs();
+          renderContent();
+        });
+      });
+
+      tabRoot.querySelectorAll("[data-alert-filter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.category = "all";
+          state.alertFilter = button.dataset.alertFilter;
           renderTabs();
           renderContent();
         });
@@ -911,6 +1114,18 @@
     }
 
     function itemTemplate(item) {
+      const purchaseAlert = purchaseAlertForItem(item);
+      const purchaseAlertHtml = purchaseAlert.alerts.length
+        ? `
+          <div class="purchase-alerts">
+            ${purchaseAlert.alerts.map((alert) => `
+              <span class="purchase-badge purchase-badge-${alert.level}">
+                ${alert.level === "order" ? "需採購" : "觀察中"}，${escapeHtml(alert.label)}餘: ${formatNumber(alert.value)} 卷，低於安全量: ${formatNumber(alert.threshold)} 卷
+              </span>
+            `).join("")}
+          </div>
+        `
+        : "";
       const warehouseCells = data.warehouseOrder.map((warehouse, index) => {
         const value = item.warehouses[warehouse] || 0;
         const label = data.warehouseLabels[warehouse] || warehouse;
@@ -934,6 +1149,7 @@
               <span>${escapeHtml(item.code)}</span>
               <span>${escapeHtml(item.spec || "-")}</span>
             </div>
+            ${purchaseAlertHtml}
           </div>
           ${warehouseCells}
           <div class="total-cell">
@@ -1019,11 +1235,13 @@
 
     document.getElementById("search").addEventListener("input", (event) => {
       state.query = event.target.value;
+      renderTabs();
       renderContent();
     });
 
     document.getElementById("search").addEventListener("search", (event) => {
       state.query = event.target.value;
+      renderTabs();
       renderContent();
     });
 

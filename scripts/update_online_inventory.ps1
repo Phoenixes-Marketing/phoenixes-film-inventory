@@ -24,7 +24,10 @@ $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $PublicRoot = Join-Path $ProjectRoot "public"
 $PublicAppDir = Join-Path $PublicRoot "phoenixes-film-inventory"
 $DataFile = Join-Path $PublicAppDir "dashboard-data.js"
+$PurchaseAlertDataFile = Join-Path $PublicAppDir "purchase-alert-data.js"
 $BuildScript = Join-Path $ProjectRoot "scripts\build_dashboard.py"
+$PurchaseAlertBuildScript = Join-Path $ProjectRoot "scripts\build_purchase_alerts.py"
+$PurchaseAlertSettingsFile = Join-Path $ProjectRoot "data\採購提醒設定.xlsx"
 $DeployDir = Join-Path $ProjectRoot ".deploy\gh-pages"
 $LogDir = Join-Path $ProjectRoot "logs"
 $LiveUrl = "https://phoenixes-marketing.github.io/phoenixes-film-inventory/"
@@ -126,6 +129,23 @@ function Read-DashboardData {
     return $json | ConvertFrom-Json
 }
 
+function Read-PurchaseAlertData {
+    param([string]$Path)
+
+    $content = Get-Content -LiteralPath $Path -Encoding UTF8 -Raw
+    $prefix = "window.PURCHASE_ALERT_SETTINGS = "
+    if (-not $content.StartsWith($prefix)) {
+        throw "purchase-alert-data.js has an unexpected format."
+    }
+
+    $json = $content.Substring($prefix.Length).Trim()
+    if ($json.EndsWith(";")) {
+        $json = $json.Substring(0, $json.Length - 1)
+    }
+
+    return $json | ConvertFrom-Json
+}
+
 function Ensure-DeployWorktree {
     Write-Step "Preparing GitHub Pages deploy folder"
     Invoke-Git -Arguments @("fetch", "github", "gh-pages")
@@ -158,6 +178,7 @@ function Copy-PublicFilesToDeploy {
     $copyMap = @(
         @{ From = (Join-Path $PublicAppDir "index.html"); To = "index.html" },
         @{ From = $DataFile; To = "dashboard-data.js" },
+        @{ From = $PurchaseAlertDataFile; To = "purchase-alert-data.js" },
         @{ From = (Join-Path $PublicRoot "robots.txt"); To = "robots.txt" },
         @{ From = (Join-Path $PublicRoot "favicon.svg"); To = "favicon.svg" }
     )
@@ -186,13 +207,18 @@ function Commit-And-Push-MainIfNeeded {
     param([string]$CommitMessage)
 
     Write-Step "Saving inventory data version"
-    $changes = @(Get-GitOutput -Arguments @("status", "--porcelain", "--", "public/phoenixes-film-inventory/dashboard-data.js"))
+    $dataPaths = @(
+        "public/phoenixes-film-inventory/dashboard-data.js",
+        "public/phoenixes-film-inventory/purchase-alert-data.js",
+        "data/採購提醒設定.xlsx"
+    )
+    $changes = @(Get-GitOutput -Arguments (@("status", "--porcelain", "--") + $dataPaths))
     if ($changes.Count -eq 0) {
         Write-Note "No inventory data change on main; skipping main commit."
         return
     }
 
-    Invoke-Git -Arguments @("add", "public/phoenixes-film-inventory/dashboard-data.js")
+    Invoke-Git -Arguments (@("add") + $dataPaths)
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage)
     Invoke-Git -Arguments @("push", "github", "main")
     Write-Ok "Main branch backup pushed"
@@ -208,14 +234,17 @@ function Commit-And-Push-DeployIfNeeded {
         return
     }
 
-    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
+    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage) -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("push", "github", "gh-pages") -WorkingDirectory $DeployDir
     Write-Ok "GitHub Pages pushed"
 }
 
 function Verify-LiveData {
-    param([string]$GeneratedAt)
+    param(
+        [string]$GeneratedAt,
+        [string]$PurchaseAlertGeneratedAt = ""
+    )
 
     if ($SkipVerify) {
         Write-Note "Live verification skipped."
@@ -228,8 +257,11 @@ function Verify-LiveData {
         try {
             $cacheBust = [guid]::NewGuid().ToString("N")
             $dataUrl = "$($LiveUrl)dashboard-data.js?check=$cacheBust"
+            $purchaseUrl = "$($LiveUrl)purchase-alert-data.js?check=$cacheBust"
             $response = Invoke-WebRequest -Uri $dataUrl -UseBasicParsing -TimeoutSec 15
-            if ($response.StatusCode -eq 200 -and $response.Content.Contains($GeneratedAt)) {
+            $purchaseResponse = Invoke-WebRequest -Uri $purchaseUrl -UseBasicParsing -TimeoutSec 15
+            $purchaseVerified = [string]::IsNullOrWhiteSpace($PurchaseAlertGeneratedAt) -or $purchaseResponse.Content.Contains($PurchaseAlertGeneratedAt)
+            if ($response.StatusCode -eq 200 -and $response.Content.Contains($GeneratedAt) -and $purchaseResponse.StatusCode -eq 200 -and $purchaseVerified) {
                 $verified = $true
                 break
             }
@@ -244,7 +276,7 @@ function Verify-LiveData {
     }
 
     if ($verified) {
-        Write-Ok "Live website shows the latest data"
+        Write-Ok "Live website shows the latest dashboard and purchase alert data"
     }
     else {
         Write-Warning "Push completed, but GitHub Pages may still be refreshing. Please refresh the site in 1-3 minutes."
@@ -274,6 +306,12 @@ try {
     if (-not (Test-Path $BuildScript)) {
         throw "Build script not found: $BuildScript"
     }
+    if (-not (Test-Path $PurchaseAlertBuildScript)) {
+        throw "Purchase alert build script not found: $PurchaseAlertBuildScript"
+    }
+    if (-not (Test-Path $PurchaseAlertSettingsFile)) {
+        throw "Purchase alert settings file not found: $PurchaseAlertSettingsFile"
+    }
     Get-GitOutput -Arguments @("remote", "get-url", "github") | Out-Null
     Write-Ok "Environment check passed"
 
@@ -287,6 +325,15 @@ try {
     Write-Note "Item count: $($dashboardData.summary.itemCount)"
     Write-Note "Generated at: $($dashboardData.generatedAt)"
 
+    Write-Step "Reading purchase alert settings"
+    $purchaseArgs = $pythonArgsPrefix + @($PurchaseAlertBuildScript, "--source", $PurchaseAlertSettingsFile, "--output", $PurchaseAlertDataFile)
+    Invoke-External -Command $pythonCommand.Source -Arguments $purchaseArgs -WorkingDirectory $ProjectRoot
+    $purchaseAlertData = Read-PurchaseAlertData -Path $PurchaseAlertDataFile
+    Write-Ok "purchase-alert-data.js generated"
+    Write-Note "Configured alerts: $($purchaseAlertData.summary.configuredCount)"
+    Write-Note "Enabled configured alerts: $($purchaseAlertData.summary.enabledConfiguredCount)"
+    Write-Note "Generated at: $($purchaseAlertData.generatedAt)"
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
     $commitMessage = "Update inventory data $timestamp"
 
@@ -294,7 +341,7 @@ try {
     Ensure-DeployWorktree
     Copy-PublicFilesToDeploy
     Commit-And-Push-DeployIfNeeded -CommitMessage $commitMessage
-    Verify-LiveData -GeneratedAt ([string]$dashboardData.generatedAt)
+    Verify-LiveData -GeneratedAt ([string]$dashboardData.generatedAt) -PurchaseAlertGeneratedAt ([string]$purchaseAlertData.generatedAt)
 
     Write-Step "Done"
     Write-Ok "Live URL: $LiveUrl"

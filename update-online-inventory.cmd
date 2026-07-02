@@ -6,7 +6,7 @@ cd /d "%PROJECT_DIR%"
 echo Phoenixes Film Inventory - Online Update
 echo.
 
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%PROJECT_DIR%scripts\update_online_inventory.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%PROJECT_DIR%scripts\update_online_inventory.ps1" %*
 set "EXITCODE=%ERRORLEVEL%"
 
 echo.

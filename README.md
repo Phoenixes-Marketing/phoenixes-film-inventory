@@ -24,6 +24,16 @@
 
 `docs\online-update.md`
 
+新電腦設定與交接指南：
+
+`docs\new-computer-setup.md`
+
+在新電腦 clone repo 後，可執行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_new_computer.ps1
+```
+
 如需重建桌面與開始功能表捷徑：
 
 ```powershell
@@ -72,5 +82,6 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start_dashboard.ps1 -Bind 0.0
 - `public\phoenixes-film-inventory\dashboard-data.js`：目前上線資料
 - `scripts\build_dashboard.py`：讀取 ERP Excel 並產生資料
 - `scripts\update_online_inventory.ps1`：一鍵更新與上傳 GitHub Pages
+- `scripts\setup_new_computer.ps1`：新電腦初始化與環境檢查
 - `update-online-inventory.cmd`：給使用者雙擊的更新入口
 - `docs\分類與庫存規則.md`：分類與庫存顏色規則

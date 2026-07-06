@@ -309,6 +309,7 @@
     }
 
     .category-tabs button[data-alert-filter="notes"] {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -336,6 +337,25 @@
     .note-filter-icon {
       width: 30px;
       height: 30px;
+    }
+
+    .note-filter-count {
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+      display: grid;
+      place-items: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border: 1px solid rgba(255, 255, 255, 0.96);
+      border-radius: 999px;
+      background: #1d1d1f;
+      color: #fff;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 760;
+      font-variant-numeric: tabular-nums;
     }
 
     .tab-count {
@@ -1283,9 +1303,7 @@
         return `<button type="button" data-alert-filter="${tab.value}" aria-pressed="${pressed}">${tab.label} <span class="tab-count">${formatNumber(tab.count)}</span></button>`;
       });
       const noteButtonPressed = state.alertFilter === "notes";
-      const noteFilterButton = totalNoteCount
-        ? `<button type="button" data-alert-filter="notes" aria-pressed="${noteButtonPressed}" title="只看有備註的品項" aria-label="只看有備註的品項">${noteStarSvg("note-star-filter", "note-filter-icon")}</button>`
-        : "";
+      const noteFilterButton = `<button type="button" data-alert-filter="notes" aria-pressed="${noteButtonPressed}" title="只看有備註的品項" aria-label="只看有備註的品項，目前 ${formatNumber(totalNoteCount)} 項">${noteStarSvg("note-star-filter", "note-filter-icon")}<span class="note-filter-count">${formatNumber(totalNoteCount)}</span></button>`;
       tabRoot.innerHTML = [...categoryButtons, ...alertButtons, noteFilterButton].join("");
 
       tabRoot.querySelectorAll("[data-category]").forEach((button) => {

@@ -1,11 +1,12 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-07-06T09:08:50",
+  "generatedAt": "2026-07-06T11:00:06",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依產品~10.xlsx",
-    "filename": "分庫狀況表- 依產品~10.xlsx",
-    "lastModified": "2026-07-06T09:08:48",
-    "sizeBytes": 22386,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依產品~11.xlsx",
+    "filename": "分庫狀況表- 依產品~11.xlsx",
+    "lastModified": "2026-07-06T10:39:58",
+    "sizeBytes": 22626,
     "dimension": "A1:R319",
+    "layout": "依產品",
     "reportDates": [
       "2026/07/06"
     ],
@@ -93,6 +94,7 @@ window.INVENTORY_DASHBOARD_DATA = {
           "name": "醬包膜系列",
           "items": [
             "公版NY/PE醬包膜,180*400(60)",
+            "公版NY/PE醬包膜,180*400(50)",
             "公版PET//CPP-MAGIC CUT,130*400",
             "公版PET//CPP-MAGIC CUT,180*400",
             "公版PE厚醬包膜,130*400",
@@ -236,14 +238,14 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 1
       },
       "warehouses": {
-        "台北倉": 577,
+        "台北倉": 517,
         "台中倉": 0,
         "台南倉": 364,
         "高雄倉": 141,
         "欣凱倉": 0
       },
-      "visibleTotal": 1082,
-      "subtotal": 1082,
+      "visibleTotal": 1022,
+      "subtotal": 1022,
       "otherWarehouses": {},
       "otherTotal": 0
     },
@@ -418,12 +420,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       "warehouses": {
         "台北倉": 236,
         "台中倉": 304,
-        "台南倉": 294,
+        "台南倉": 288,
         "高雄倉": 2,
         "欣凱倉": 0
       },
-      "visibleTotal": 836,
-      "subtotal": 836,
+      "visibleTotal": 830,
+      "subtotal": 830,
       "otherWarehouses": {},
       "otherTotal": 0
     },
@@ -507,13 +509,13 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 69,
-        "台中倉": 63,
+        "台中倉": 57,
         "台南倉": 107,
         "高雄倉": 80,
         "欣凱倉": 0
       },
-      "visibleTotal": 319,
-      "subtotal": 319,
+      "visibleTotal": 313,
+      "subtotal": 313,
       "otherWarehouses": {},
       "otherTotal": 0
     },
@@ -656,14 +658,14 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 1
       },
       "warehouses": {
-        "台北倉": 36,
+        "台北倉": 37,
         "台中倉": 9,
         "台南倉": 26,
         "高雄倉": 35,
         "欣凱倉": 0
       },
-      "visibleTotal": 106,
-      "subtotal": 106,
+      "visibleTotal": 107,
+      "subtotal": 107,
       "otherWarehouses": {},
       "otherTotal": 0
     },
@@ -698,6 +700,36 @@ window.INVENTORY_DASHBOARD_DATA = {
       "otherTotal": 0
     },
     {
+      "code": "FA1901SK000001",
+      "name": "公版NY/PE醬包膜,180*400(50)",
+      "spec": "欣凱NY15/PE50-總65μm",
+      "category": "金山/欣凱/佑泰專板",
+      "series": "醬包膜系列",
+      "widthMm": 180,
+      "stockRule": {
+        "widthMm": 180,
+        "criticalAt": 20,
+        "warningBelow": 40,
+        "greenAt": 40
+      },
+      "sort": {
+        "category": 1,
+        "series": 3,
+        "item": 1
+      },
+      "warehouses": {
+        "台北倉": 0,
+        "台中倉": 59,
+        "台南倉": 0,
+        "高雄倉": 0,
+        "欣凱倉": 0
+      },
+      "visibleTotal": 59,
+      "subtotal": 59,
+      "otherWarehouses": {},
+      "otherTotal": 0
+    },
+    {
       "code": "FA2401YO000000",
       "name": "公版PET//CPP-MAGIC CUT,130*400",
       "spec": "PET12/DL03/CPP40",
@@ -713,7 +745,7 @@ window.INVENTORY_DASHBOARD_DATA = {
       "sort": {
         "category": 1,
         "series": 3,
-        "item": 1
+        "item": 2
       },
       "warehouses": {
         "台北倉": 0,
@@ -743,7 +775,7 @@ window.INVENTORY_DASHBOARD_DATA = {
       "sort": {
         "category": 1,
         "series": 3,
-        "item": 2
+        "item": 3
       },
       "warehouses": {
         "台北倉": 1.65,
@@ -773,7 +805,7 @@ window.INVENTORY_DASHBOARD_DATA = {
       "sort": {
         "category": 1,
         "series": 3,
-        "item": 3
+        "item": 4
       },
       "warehouses": {
         "台北倉": 31.2,
@@ -805,7 +837,7 @@ window.INVENTORY_DASHBOARD_DATA = {
       "sort": {
         "category": 1,
         "series": 3,
-        "item": 4
+        "item": 5
       },
       "warehouses": {
         "台北倉": 0,
@@ -1091,12 +1123,12 @@ window.INVENTORY_DASHBOARD_DATA = {
     }
   ],
   "summary": {
-    "itemCount": 32,
-    "visibleNonzeroCount": 31,
+    "itemCount": 33,
+    "visibleNonzeroCount": 32,
     "visibleZeroCount": 1,
     "categoryCounts": {
       "金山公版": 9,
-      "金山/欣凱/佑泰專板": 14,
+      "金山/欣凱/佑泰專板": 15,
       "三櫻系列": 9
     },
     "seriesCounts": {
@@ -1105,28 +1137,28 @@ window.INVENTORY_DASHBOARD_DATA = {
       "金山/欣凱/佑泰專板::GPE系列": 4,
       "金山/欣凱/佑泰專板::PET/ES系列": 3,
       "金山/欣凱/佑泰專板::PP系列": 2,
-      "金山/欣凱/佑泰專板::醬包膜系列": 5,
+      "金山/欣凱/佑泰專板::醬包膜系列": 6,
       "金山公版::ES系列": 2,
       "金山公版::GPE系列": 4,
       "金山公版::PP系列": 3
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 1580.55,
-      "台中倉": 1282.85,
-      "台南倉": 1759.03,
+      "台北倉": 1521.55,
+      "台中倉": 1335.85,
+      "台南倉": 1753.03,
       "高雄倉": 478.6,
       "欣凱倉": 82
     },
-    "visibleGrandTotal": 5183.03,
+    "visibleGrandTotal": 5171.03,
     "hiddenWarehouseTotals": {
       "退貨倉-台南": 1
     },
     "hiddenStockItemCount": 1,
     "warehouseRowsFound": {
       "J倉": 5,
-      "台中倉": 31,
-      "台北倉": 29,
+      "台中倉": 32,
+      "台北倉": 30,
       "台南倉": 32,
       "極品代交倉": 2,
       "欣凱倉": 3,

@@ -91,6 +91,7 @@ CATEGORY_RULES = [
                 "name": "醬包膜系列",
                 "items": [
                     "公版NY/PE醬包膜,180*400(60)",
+                    "公版NY/PE醬包膜,180*400(50)",
                     "公版PET//CPP-MAGIC CUT,130*400",
                     "公版PET//CPP-MAGIC CUT,180*400",
                     "公版PE厚醬包膜,130*400",
@@ -169,6 +170,38 @@ def clean_number(value: float | int | None) -> float | int:
 
 def normalize_warehouse_name(value: Any) -> str:
     return str(value or "").strip().replace("臺", "台")
+
+
+def product_record(code: str, name: str, spec: str) -> dict[str, Any]:
+    return {
+        "code": code,
+        "name": name,
+        "spec": spec,
+        "warehouses": {name: 0 for name in TARGET_WAREHOUSES},
+        "otherWarehouses": defaultdict(float),
+        "subtotal": None,
+    }
+
+
+def add_product_stock(
+    products: OrderedDict[str, dict[str, Any]],
+    warehouse_rows: Counter[str],
+    code: str,
+    name: str,
+    spec: str,
+    warehouse: str,
+    quantity: float | int,
+) -> None:
+    if code not in products:
+        products[code] = product_record(code, name, spec)
+    elif spec and not products[code]["spec"]:
+        products[code]["spec"] = spec
+
+    warehouse_rows[warehouse] += 1
+    if warehouse in TARGET_WAREHOUSES:
+        products[code]["warehouses"][warehouse] += quantity
+    else:
+        products[code]["otherWarehouses"][warehouse] += quantity
 
 
 def classify_product(name: str) -> dict[str, Any]:
@@ -282,20 +315,31 @@ def latest_xlsx(source: Path) -> Path:
     return max(files, key=lambda item: item.stat().st_mtime)
 
 
-def parse_inventory(path: Path) -> dict[str, Any]:
-    rows, dimension = workbook_rows(path)
-    products: OrderedDict[str, dict[str, Any]] = OrderedDict()
-    current_code: str | None = None
-    report_dates: set[str] = set()
-    page_labels: set[str] = set()
-    warehouse_rows: Counter[str] = Counter()
+def report_layout(rows: dict[int, dict[str, str]]) -> str:
+    for row_number in sorted(rows):
+        cells = rows[row_number]
+        title = str(cells.get("A", "")).strip()
+        if "分庫狀況表- 依分庫" in title:
+            return "依分庫"
+        if "分庫狀況表- 依產品" in title:
+            return "依產品"
+    return "依產品"
 
-    for cells in rows.values():
-        q_value = str(cells.get("Q", ""))
-        if re.match(r"^\d{4}/\d{2}/\d{2}$", q_value):
-            report_dates.add(q_value)
-        if re.match(r"^\d+\s*/\s*\d+$", q_value):
-            page_labels.add(q_value)
+
+def spec_text(cells: dict[str, str], columns: list[str]) -> str:
+    return " ".join(
+        str(cells.get(col, "")).strip()
+        for col in columns
+        if cells.get(col, "")
+    )
+
+
+def parse_by_product(
+    rows: dict[int, dict[str, str]],
+) -> tuple[OrderedDict[str, dict[str, Any]], Counter[str]]:
+    products: OrderedDict[str, dict[str, Any]] = OrderedDict()
+    warehouse_rows: Counter[str] = Counter()
+    current_code: str | None = None
 
     for row_number in sorted(rows):
         cells = rows[row_number]
@@ -304,20 +348,9 @@ def parse_inventory(path: Path) -> dict[str, Any]:
 
         if col_a.endswith(":") and code.startswith("F"):
             name = str(cells.get("F", "")).strip()
-            spec = " ".join(
-                str(cells.get(col, "")).strip()
-                for col in ["K", "L", "M", "N", "O", "P"]
-                if cells.get(col, "")
-            )
+            spec = spec_text(cells, ["K", "L", "M", "N", "O", "P"])
             if code not in products:
-                products[code] = {
-                    "code": code,
-                    "name": name,
-                    "spec": spec,
-                    "warehouses": {name: 0 for name in TARGET_WAREHOUSES},
-                    "otherWarehouses": defaultdict(float),
-                    "subtotal": None,
-                }
+                products[code] = product_record(code, name, spec)
             elif spec and not products[code]["spec"]:
                 products[code]["spec"] = spec
 
@@ -339,11 +372,74 @@ def parse_inventory(path: Path) -> dict[str, Any]:
         if not warehouse or warehouse.endswith(":"):
             continue
 
-        warehouse_rows[warehouse] += 1
-        if warehouse in TARGET_WAREHOUSES:
-            products[current_code]["warehouses"][warehouse] += q_number
-        else:
-            products[current_code]["otherWarehouses"][warehouse] += q_number
+        add_product_stock(
+            products,
+            warehouse_rows,
+            current_code,
+            products[current_code]["name"],
+            products[current_code]["spec"],
+            warehouse,
+            q_number,
+        )
+
+    return products, warehouse_rows
+
+
+def parse_by_warehouse(
+    rows: dict[int, dict[str, str]],
+) -> tuple[OrderedDict[str, dict[str, Any]], Counter[str]]:
+    products: OrderedDict[str, dict[str, Any]] = OrderedDict()
+    warehouse_rows: Counter[str] = Counter()
+    current_warehouse = ""
+
+    for row_number in sorted(rows):
+        cells = rows[row_number]
+        col_a = str(cells.get("A", "")).strip()
+
+        if col_a == "庫別代號:":
+            current_warehouse = normalize_warehouse_name(cells.get("F"))
+            continue
+
+        if not current_warehouse or not col_a.startswith("F"):
+            continue
+
+        quantity = parse_number(cells.get("P") or cells.get("Q"))
+        if quantity is None:
+            continue
+
+        code = col_a
+        name = str(cells.get("C", "")).strip()
+        spec = spec_text(cells, ["J", "K", "L", "M", "N", "O"])
+        add_product_stock(
+            products,
+            warehouse_rows,
+            code,
+            name,
+            spec,
+            current_warehouse,
+            quantity,
+        )
+
+    return products, warehouse_rows
+
+
+def parse_inventory(path: Path) -> dict[str, Any]:
+    rows, dimension = workbook_rows(path)
+    report_dates: set[str] = set()
+    page_labels: set[str] = set()
+
+    for cells in rows.values():
+        q_value = str(cells.get("Q", ""))
+        if re.match(r"^\d{4}/\d{2}/\d{2}$", q_value):
+            report_dates.add(q_value)
+        if re.match(r"^\d+\s*/\s*\d+$", q_value):
+            page_labels.add(q_value)
+
+    layout = report_layout(rows)
+    if layout == "依分庫":
+        products, warehouse_rows = parse_by_warehouse(rows)
+    else:
+        products, warehouse_rows = parse_by_product(rows)
 
     items: list[dict[str, Any]] = []
     other_totals: Counter[str] = Counter()
@@ -419,6 +515,7 @@ def parse_inventory(path: Path) -> dict[str, Any]:
             ),
             "sizeBytes": path.stat().st_size,
             "dimension": dimension,
+            "layout": layout,
             "reportDates": sorted(report_dates),
             "pages": sorted(page_labels),
         },

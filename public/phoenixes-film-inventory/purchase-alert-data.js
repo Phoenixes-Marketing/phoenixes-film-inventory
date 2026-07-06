@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-06T13:06:07",
+  "generatedAt": "2026-07-06T14:21:15",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-06T10:59:24",
-    "sizeBytes": 12273
+    "lastModified": "2026-07-06T14:21:08",
+    "sizeBytes": 16919
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -238,7 +238,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "5/13下單103卷，7/15淋膜，7/22送台北10箱，剩下7/23送台南16箱"
     },
     "私版GPE-特殊透明,180*450": {
       "enabled": true,
@@ -297,7 +297,11 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山/欣凱/佑泰專板",
       "series": "醬包膜系列",
       "widthMm": 180.0,
-      "thresholds": {},
+      "thresholds": {
+        "台中倉": {
+          "watch": 20
+        }
+      },
       "total": {},
       "note": ""
     },
@@ -439,7 +443,7 @@ window.PURCHASE_ALERT_SETTINGS = {
   },
   "summary": {
     "itemCount": 33,
-    "configuredCount": 23,
-    "enabledConfiguredCount": 23
+    "configuredCount": 24,
+    "enabledConfiguredCount": 24
   }
 };

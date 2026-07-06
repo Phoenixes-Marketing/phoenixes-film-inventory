@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-06T09:08:51",
+  "generatedAt": "2026-07-06T11:01:06",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-01T13:41:27",
-    "sizeBytes": 17480
+    "lastModified": "2026-07-06T10:59:24",
+    "sizeBytes": 12273
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -292,6 +292,15 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "note": ""
     },
+    "公版NY/PE醬包膜,180*400(50)": {
+      "enabled": true,
+      "category": "金山/欣凱/佑泰專板",
+      "series": "醬包膜系列",
+      "widthMm": 180.0,
+      "thresholds": {},
+      "total": {},
+      "note": ""
+    },
     "公版PET//CPP-MAGIC CUT,130*400": {
       "enabled": true,
       "category": "金山/欣凱/佑泰專板",
@@ -429,7 +438,7 @@ window.PURCHASE_ALERT_SETTINGS = {
     }
   },
   "summary": {
-    "itemCount": 32,
+    "itemCount": 33,
     "configuredCount": 23,
     "enabledConfiguredCount": 23
   }

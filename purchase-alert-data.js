@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-06T14:21:15",
+  "generatedAt": "2026-07-06T14:37:30",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-06T14:21:08",
-    "sizeBytes": 16919
+    "lastModified": "2026-07-06T14:37:24",
+    "sizeBytes": 16983
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -278,7 +278,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "6/23已完工320卷，剩餘32卷未完工，尚未入庫欣凱倉"
     },
     "公版NY/PE醬包膜,180*400(60)": {
       "enabled": true,

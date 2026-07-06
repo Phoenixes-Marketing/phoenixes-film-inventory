@@ -308,6 +308,36 @@
       box-shadow: 0 11px 24px rgba(212, 76, 104, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.48);
     }
 
+    .category-tabs button[data-alert-filter="notes"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      min-height: 40px;
+      padding: 0;
+      border-color: rgba(221, 162, 0, 0.3);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      color: #f2ad00;
+    }
+
+    .category-tabs button[data-alert-filter="notes"][aria-pressed="true"] {
+      border-color: rgba(221, 162, 0, 0.46);
+      background: #fff;
+      box-shadow: 0 9px 22px rgba(221, 162, 0, 0.13);
+    }
+
+    .note-star-icon {
+      display: block;
+    }
+
+    .note-filter-icon {
+      width: 30px;
+      height: 30px;
+    }
+
     .tab-count {
       opacity: 0.78;
     }
@@ -520,6 +550,135 @@
       background: linear-gradient(135deg, #fff0f3 0%, #ffd1da 100%);
       color: #5b1020;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48);
+    }
+
+    .product-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .product-title-row .product-name {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .note-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(221, 162, 0, 0.25);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      color: #f2ad00;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .note-tag:hover {
+      border-color: rgba(221, 162, 0, 0.42);
+      background: #fff;
+      color: #dc9700;
+      box-shadow: 0 9px 24px rgba(221, 162, 0, 0.15);
+    }
+
+    .note-tag:focus-visible {
+      outline: none;
+      border-color: rgba(0, 113, 227, 0.58);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
+    }
+
+    .note-tag[data-has-note="true"] {
+      border-color: rgba(221, 162, 0, 0.3);
+      background: #fff;
+      color: #f2ad00;
+    }
+
+    .note-tag svg {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+    }
+
+    .note-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      background: transparent;
+    }
+
+    .note-backdrop.is-open {
+      display: block;
+    }
+
+    .note-popover {
+      position: fixed;
+      z-index: 81;
+      width: min(330px, calc(100vw - 28px));
+      padding: 14px 14px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.17);
+    }
+
+    .note-popover-title {
+      margin: 0 34px 4px 0;
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 780;
+      overflow-wrap: anywhere;
+    }
+
+    .note-popover-meta {
+      margin-bottom: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .note-popover-body {
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .note-popover-body.is-empty {
+      color: var(--muted);
+    }
+
+    .note-close {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .note-close:hover {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+    }
+
+    .note-close:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.13);
     }
 
     .warehouse-cell {
@@ -758,6 +917,11 @@
       .warehouse-cell-empty {
         display: none;
       }
+
+      .note-popover {
+        max-height: min(58vh, 420px);
+        overflow: auto;
+      }
     }
 
     @media (max-width: 560px) {
@@ -816,6 +980,27 @@
 
       .item-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .product-title-row {
+        gap: 7px;
+      }
+
+      .note-tag {
+        width: 40px;
+        height: 40px;
+      }
+
+      .note-backdrop.is-open {
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .note-popover {
+        left: 9px !important;
+        right: 9px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        top: auto !important;
+        width: auto;
       }
 
       .warehouse-cell:nth-child(3),
@@ -891,6 +1076,12 @@
       alertFilter: "all"
     };
 
+    const noteLayer = {
+      backdrop: null,
+      popover: null,
+      activeCode: ""
+    };
+
     const numberFormatter = new Intl.NumberFormat("zh-Hant-TW", {
       maximumFractionDigits: 2
     });
@@ -931,6 +1122,31 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+    }
+
+    function noteForItem(item) {
+      const text = String(purchaseAlertSettings.settings?.[item.name]?.note || "").trim();
+      return { text };
+    }
+
+    function hasItemNote(item) {
+      return Boolean(noteForItem(item).text);
+    }
+
+    function noteStarSvg(id, className = "note-star-icon") {
+      const safeId = escapeHtml(id);
+      return `
+        <svg class="${escapeHtml(className)}" viewBox="0 0 24 24" aria-hidden="true">
+          <defs>
+            <linearGradient id="${safeId}" x1="7" y1="4" x2="17.5" y2="20" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#fff2a8"/>
+              <stop offset="0.52" stop-color="#ffd34a"/>
+              <stop offset="1" stop-color="#f5a623"/>
+            </linearGradient>
+          </defs>
+          <path d="M 12.58 4.71 L 14.22 7.84 Q 14.56 8.48 15.27 8.6 L 18.76 9.19 Q 19.99 9.4 19.12 10.3 L 16.64 12.83 Q 16.14 13.34 16.24 14.06 L 16.76 17.56 Q 16.94 18.8 15.82 18.24 L 12.65 16.67 Q 12 16.35 11.35 16.67 L 8.18 18.24 Q 7.06 18.8 7.24 17.56 L 7.76 14.06 Q 7.86 13.34 7.36 12.83 L 4.88 10.3 Q 4.01 9.4 5.24 9.19 L 8.73 8.6 Q 9.44 8.48 9.78 7.84 L 11.42 4.71 Q 12 3.6 12.58 4.71 Z" fill="url(#${safeId})"/>
+        </svg>
+      `;
     }
 
     function parseDashboardDataScript(text) {
@@ -1005,6 +1221,7 @@
       const alert = purchaseAlertForItem(item);
       if (state.alertFilter === "order") return alert.level === "order";
       if (state.alertFilter === "watch") return alert.level === "order" || alert.level === "watch";
+      if (state.alertFilter === "notes") return hasItemNote(item);
       return true;
     }
 
@@ -1048,6 +1265,7 @@
         return alert.level === "order" || alert.level === "watch";
       }).length;
       const orderCount = items.filter((item) => purchaseAlertForItem(item).level === "order").length;
+      const totalNoteCount = data.items.filter(hasItemNote).length;
       const alertTabs = [
         { value: "watch", label: "觀察中", count: watchCount },
         { value: "order", label: "需採購", count: orderCount },
@@ -1064,7 +1282,11 @@
         const pressed = tab.value === state.alertFilter;
         return `<button type="button" data-alert-filter="${tab.value}" aria-pressed="${pressed}">${tab.label} <span class="tab-count">${formatNumber(tab.count)}</span></button>`;
       });
-      tabRoot.innerHTML = [...categoryButtons, ...alertButtons].join("");
+      const noteButtonPressed = state.alertFilter === "notes";
+      const noteFilterButton = totalNoteCount
+        ? `<button type="button" data-alert-filter="notes" aria-pressed="${noteButtonPressed}" title="只看有備註的品項" aria-label="只看有備註的品項">${noteStarSvg("note-star-filter", "note-filter-icon")}</button>`
+        : "";
+      tabRoot.innerHTML = [...categoryButtons, ...alertButtons, noteFilterButton].join("");
 
       tabRoot.querySelectorAll("[data-category]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -1113,8 +1335,133 @@
       }
     }
 
+    function ensureNoteLayer() {
+      if (noteLayer.backdrop && noteLayer.popover) return;
+
+      const backdrop = document.createElement("div");
+      backdrop.className = "note-backdrop";
+      backdrop.addEventListener("click", closeItemNote);
+
+      const popover = document.createElement("aside");
+      popover.className = "note-popover";
+      popover.hidden = true;
+      popover.setAttribute("role", "dialog");
+      popover.setAttribute("aria-modal", "false");
+      popover.addEventListener("click", (event) => event.stopPropagation());
+
+      const closeButton = document.createElement("button");
+      closeButton.className = "note-close";
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "關閉備註");
+      closeButton.textContent = "×";
+      closeButton.addEventListener("click", closeItemNote);
+
+      const title = document.createElement("div");
+      title.className = "note-popover-title";
+
+      const meta = document.createElement("div");
+      meta.className = "note-popover-meta";
+
+      const body = document.createElement("div");
+      body.className = "note-popover-body";
+
+      popover.append(closeButton, title, meta, body);
+      document.body.append(backdrop, popover);
+
+      noteLayer.backdrop = backdrop;
+      noteLayer.popover = popover;
+    }
+
+    function closeItemNote() {
+      if (!noteLayer.backdrop || !noteLayer.popover) return;
+      noteLayer.backdrop.classList.remove("is-open");
+      noteLayer.popover.hidden = true;
+      noteLayer.activeCode = "";
+    }
+
+    function positionItemNote(trigger) {
+      const popover = noteLayer.popover;
+      if (!popover) return;
+
+      if (window.matchMedia("(max-width: 560px)").matches) {
+        popover.style.left = "";
+        popover.style.top = "";
+        return;
+      }
+
+      const gap = 8;
+      const edge = 14;
+      const triggerRect = trigger.getBoundingClientRect();
+      const popoverRect = popover.getBoundingClientRect();
+      let left = triggerRect.left;
+      let top = triggerRect.bottom + gap;
+
+      if (left + popoverRect.width > window.innerWidth - edge) {
+        left = window.innerWidth - popoverRect.width - edge;
+      }
+      if (top + popoverRect.height > window.innerHeight - edge) {
+        top = Math.max(edge, triggerRect.top - popoverRect.height - gap);
+      }
+
+      popover.style.left = `${Math.max(edge, left)}px`;
+      popover.style.top = `${Math.max(edge, top)}px`;
+    }
+
+    function openItemNote(trigger, item) {
+      ensureNoteLayer();
+
+      if (noteLayer.activeCode === item.code && !noteLayer.popover.hidden) {
+        closeItemNote();
+        return;
+      }
+
+      const note = noteForItem(item);
+      const title = noteLayer.popover.querySelector(".note-popover-title");
+      const meta = noteLayer.popover.querySelector(".note-popover-meta");
+      const body = noteLayer.popover.querySelector(".note-popover-body");
+
+      title.textContent = item.name;
+      meta.textContent = "品項備註";
+      body.textContent = note.text || "尚未填寫備註";
+      body.classList.toggle("is-empty", !note.text);
+
+      noteLayer.activeCode = item.code;
+      noteLayer.popover.hidden = false;
+      noteLayer.backdrop.classList.add("is-open");
+      positionItemNote(trigger);
+    }
+
+    function bindNoteButtonClicks() {
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-note-code]");
+        if (!trigger) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = data.items.find((candidate) => candidate.code === trigger.dataset.noteCode);
+        if (item) openItemNote(trigger, item);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeItemNote();
+      });
+
+      window.addEventListener("resize", closeItemNote);
+    }
+
     function itemTemplate(item) {
       const purchaseAlert = purchaseAlertForItem(item);
+      const note = noteForItem(item);
+      const hasNote = Boolean(note.text);
+      const noteStarGradientId = `note-star-${item.code}`;
+      const noteButtonHtml = hasNote
+        ? `
+              <button class="note-tag" type="button" data-note-code="${escapeHtml(item.code)}" data-has-note="true" title="查看品項備註" aria-label="${escapeHtml(item.name)}備註">
+                ${noteStarSvg(noteStarGradientId)}
+              </button>
+            `
+        : "";
       const purchaseAlertHtml = purchaseAlert.alerts.length
         ? `
           <div class="purchase-alerts">
@@ -1144,7 +1491,10 @@
       return `
         <article class="item-row ${Number(item.visibleTotal || 0) === 0 ? "zero-row" : ""}">
           <div class="product-cell">
-            <div class="product-name">${escapeHtml(item.name)}</div>
+            <div class="product-title-row">
+              <div class="product-name">${escapeHtml(item.name)}</div>
+              ${noteButtonHtml}
+            </div>
             <div class="product-sub">
               <span>${escapeHtml(item.code)}</span>
               <span>${escapeHtml(item.spec || "-")}</span>
@@ -1196,6 +1546,7 @@
     }
 
     function renderContent() {
+      closeItemNote();
       const search = document.getElementById("search");
       if (search) state.query = search.value;
 
@@ -1246,6 +1597,7 @@
     });
 
     document.getElementById("refresh-data").addEventListener("click", refreshDashboardData);
+    bindNoteButtonClicks();
 
     renderMeta();
     renderTabs();

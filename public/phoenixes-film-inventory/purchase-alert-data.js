@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-07T14:11:00",
+  "generatedAt": "2026-07-07T14:48:52",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-07T14:10:44",
-    "sizeBytes": 16959
+    "lastModified": "2026-07-07T14:15:01",
+    "sizeBytes": 16966
   },
   "settings": {
     "公版ES-透明,130*290(金)": {

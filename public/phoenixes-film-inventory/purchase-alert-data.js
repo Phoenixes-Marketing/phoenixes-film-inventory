@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-08T09:10:48",
+  "generatedAt": "2026-07-08T10:11:04",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-07T14:15:01",
-    "sizeBytes": 16966
+    "lastModified": "2026-07-08T10:10:34",
+    "sizeBytes": 17015
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -86,7 +86,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
     },
     "公版GPE-透明,180*500": {
       "enabled": true,
@@ -100,7 +100,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
     },
     "公版PP-透明,130*450": {
       "enabled": true,
@@ -118,7 +118,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購360卷到臺南倉，暫定8/13台南專車"
     },
     "公版PP-透明,160*500": {
       "enabled": true,
@@ -132,7 +132,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購80卷到臺南倉，暫定7/23台南專車"
     },
     "公版PP-透明,180*500": {
       "enabled": true,
@@ -146,7 +146,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
     },
     "公版PET/ES-透明,130*350": {
       "enabled": true,
@@ -238,7 +238,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "5/13下單103卷，7/15淋膜，7/22送台北10箱，剩下7/23送台南16箱"
+      "note": "5/13下單103卷，7/22送台北10箱，剩下7/23送台南16箱"
     },
     "私版GPE-特殊透明,180*450": {
       "enabled": true,
@@ -264,7 +264,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "7/8採購96卷，送台中倉，交期未知"
     },
     "公版PP-透明,225*500": {
       "enabled": true,
@@ -278,7 +278,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "6/23已完工320卷，剩餘32卷未完工"
+      "note": ""
     },
     "公版NY/PE醬包膜,180*400(60)": {
       "enabled": true,

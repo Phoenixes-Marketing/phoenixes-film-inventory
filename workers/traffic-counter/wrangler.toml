@@ -2,6 +2,7 @@ name = "phoenixes-film-inventory-traffic"
 main = "src/index.js"
 compatibility_date = "2026-07-09"
 workers_dev = true
+preview_urls = false
 
 [vars]
 APP_ID = "phoenixes-film-inventory"
@@ -12,4 +13,4 @@ CLIENT_KEY_MODE = "ip"
 [[d1_databases]]
 binding = "DB"
 database_name = "phoenixes-film-inventory-traffic"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "98317591-1701-441a-aad1-bf2bb529b91c"

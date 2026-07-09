@@ -16,6 +16,14 @@
 - `scripts\update_online_inventory.ps1`
   - GitHub Pages 發布時會一併複製 `traffic-counter-config.js`
 
+## 目前正式設定
+
+- Worker API：`https://phoenixes-film-inventory-traffic.phoenixes-marketing.workers.dev`
+- Cloudflare workers.dev 子網域：`phoenixes-marketing.workers.dev`
+- D1 database name：`phoenixes-film-inventory-traffic`
+- 冷卻時間：180 秒
+- 冷卻方式：同一 IP 每 3 分鐘最多計 1 次
+
 ## 前端工作原理
 
 1. `index.html` 先照原本流程載入 `dashboard-data.js` 和 `purchase-alert-data.js`。
@@ -55,7 +63,7 @@ CLIENT_KEY_MODE = "ip-browser"
 
 ## 部署 API
 
-這台電腦目前沒有 Cloudflare 登入或 Token 時，不能直接部署 Worker。正式啟用需要先有 Cloudflare 帳號權限。
+這台電腦目前已登入 Cloudflare Wrangler，且已完成初次部署。若換新電腦或 Wrangler 登出，才需要重新登入。
 
 第一次部署流程：
 
@@ -92,7 +100,7 @@ npx wrangler deploy
 部署完成後，Cloudflare 會提供類似這樣的 endpoint：
 
 ```text
-https://phoenixes-film-inventory-traffic.<帳號>.workers.dev
+https://phoenixes-film-inventory-traffic.phoenixes-marketing.workers.dev
 ```
 
 把它填入：
@@ -102,7 +110,7 @@ https://phoenixes-film-inventory-traffic.<帳號>.workers.dev
 window.INVENTORY_TRAFFIC_COUNTER_CONFIG = {
   enabled: true,
   app: "phoenixes-film-inventory",
-  endpoint: "https://phoenixes-film-inventory-traffic.<帳號>.workers.dev",
+  endpoint: "https://phoenixes-film-inventory-traffic.phoenixes-marketing.workers.dev",
   timeoutMs: 2500,
   debug: false
 };

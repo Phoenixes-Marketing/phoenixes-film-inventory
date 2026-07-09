@@ -62,6 +62,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start_dashboard.ps1
 
 `docs\分類與庫存規則.md`
 
+今日瀏覽次數功能與 API 設定記錄在：
+
+`docs\traffic-counter.md`
+
 如需讓同網段同事測試，可把 `Bind` 改成 `0.0.0.0`：
 
 ```powershell
@@ -80,8 +84,11 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start_dashboard.ps1 -Bind 0.0
 
 - `public\phoenixes-film-inventory\index.html`：監控儀表板頁面
 - `public\phoenixes-film-inventory\dashboard-data.js`：目前上線資料
+- `public\phoenixes-film-inventory\traffic-counter-config.js`：今日瀏覽次數 API 設定
+- `workers\traffic-counter`：今日瀏覽次數 Cloudflare Worker + D1 範本
 - `scripts\build_dashboard.py`：讀取 ERP Excel 並產生資料
 - `scripts\update_online_inventory.ps1`：一鍵更新與上傳 GitHub Pages
 - `scripts\setup_new_computer.ps1`：新電腦初始化與環境檢查
 - `update-online-inventory.cmd`：給使用者雙擊的更新入口
 - `docs\分類與庫存規則.md`：分類與庫存顏色規則
+- `docs\traffic-counter.md`：今日瀏覽次數植入、部署、修改與移除說明

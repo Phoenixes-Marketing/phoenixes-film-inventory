@@ -1,0 +1,15 @@
+name = "phoenixes-film-inventory-traffic"
+main = "src/index.js"
+compatibility_date = "2026-07-09"
+workers_dev = true
+
+[vars]
+APP_ID = "phoenixes-film-inventory"
+ALLOWED_ORIGINS = "https://phoenixes-marketing.github.io,http://127.0.0.1:8765,http://localhost:8765"
+COOLDOWN_SECONDS = "180"
+CLIENT_KEY_MODE = "ip"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "phoenixes-film-inventory-traffic"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"

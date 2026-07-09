@@ -25,6 +25,7 @@ $PublicRoot = Join-Path $ProjectRoot "public"
 $PublicAppDir = Join-Path $PublicRoot "phoenixes-film-inventory"
 $DataFile = Join-Path $PublicAppDir "dashboard-data.js"
 $PurchaseAlertDataFile = Join-Path $PublicAppDir "purchase-alert-data.js"
+$TrafficCounterConfigFile = Join-Path $PublicAppDir "traffic-counter-config.js"
 $BuildScript = Join-Path $ProjectRoot "scripts\build_dashboard.py"
 $PurchaseAlertBuildScript = Join-Path $ProjectRoot "scripts\build_purchase_alerts.py"
 $PurchaseAlertSettingsName = [string][char]0x63A1 + [string][char]0x8CFC + [string][char]0x63D0 + [string][char]0x9192 + [string][char]0x8A2D + [string][char]0x5B9A + ".xlsx"
@@ -181,6 +182,7 @@ function Copy-PublicFilesToDeploy {
         @{ From = (Join-Path $PublicAppDir "index.html"); To = "index.html" },
         @{ From = $DataFile; To = "dashboard-data.js" },
         @{ From = $PurchaseAlertDataFile; To = "purchase-alert-data.js" },
+        @{ From = $TrafficCounterConfigFile; To = "traffic-counter-config.js" },
         @{ From = (Join-Path $PublicRoot "robots.txt"); To = "robots.txt" },
         @{ From = (Join-Path $PublicRoot "favicon.svg"); To = "favicon.svg" }
     )
@@ -236,7 +238,7 @@ function Commit-And-Push-DeployIfNeeded {
         return
     }
 
-    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
+    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage) -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("push", "github", "gh-pages") -WorkingDirectory $DeployDir
     Write-Ok "GitHub Pages pushed"

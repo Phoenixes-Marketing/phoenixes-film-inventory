@@ -21,7 +21,7 @@
 - 自動讀取來源資料夾中最新的 `.xlsx`。
 - 重新產生 `public\phoenixes-film-inventory\dashboard-data.js`。
 - 將資料版本提交並推送到 GitHub main 分支。
-- 將可瀏覽的靜態網頁推送到 GitHub Pages 的 `gh-pages` 分支。
+- 將可瀏覽的靜態網頁推送到 GitHub Pages 的 `gh-pages` 分支，包含 `traffic-counter-config.js`。
 - 檢查線上 `dashboard-data.js` 是否已經包含本次更新時間。
 - 把每次更新紀錄放到 `logs` 資料夾。
 

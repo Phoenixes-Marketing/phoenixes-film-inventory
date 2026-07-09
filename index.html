@@ -7,6 +7,7 @@
   <title>封王封膜庫存監控</title>
   <script src="./dashboard-data.js"></script>
   <script src="./purchase-alert-data.js"></script>
+  <script src="./traffic-counter-config.js"></script>
   <style>
     :root {
       color-scheme: light;
@@ -82,6 +83,20 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.35;
+    }
+
+    .traffic-count {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .traffic-count-value {
+      color: var(--ink);
+      font-weight: 720;
+      font-variant-numeric: tabular-nums;
     }
 
     .search {
@@ -1028,6 +1043,11 @@
           <h1>封王封膜庫存監控</h1>
           <div class="meta">
             <span id="result-count">-</span>
+            <span class="traffic-count" id="traffic-count" aria-live="polite">
+              <span>今日瀏覽</span>
+              <span class="traffic-count-value" id="traffic-count-value">-</span>
+              <span>次</span>
+            </span>
           </div>
         </div>
         <div class="sticky-controls">
@@ -1106,6 +1126,64 @@
       const date = new Date(value);
       if (Number.isNaN(date.getTime())) return value || "-";
       return dateFormatter.format(date);
+    }
+
+    function trafficCounterConfig() {
+      const config = window.INVENTORY_TRAFFIC_COUNTER_CONFIG || {};
+      const timeoutMs = Number(config.timeoutMs ?? 2500);
+      return {
+        enabled: config.enabled !== false,
+        endpoint: String(config.endpoint || "").trim(),
+        app: String(config.app || "phoenixes-film-inventory"),
+        timeoutMs: Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 2500,
+        debug: config.debug === true
+      };
+    }
+
+    function renderTrafficCount(value) {
+      const target = document.getElementById("traffic-count-value");
+      if (!target) return;
+      if (value === null || value === undefined || value === "") {
+        target.textContent = "-";
+        return;
+      }
+      const count = Number(value);
+      target.textContent = Number.isFinite(count) && count >= 0 ? formatNumber(count) : "-";
+    }
+
+    function logTrafficCounterError(error) {
+      if (trafficCounterConfig().debug) {
+        console.warn("Traffic counter unavailable.", error);
+      }
+    }
+
+    async function recordTrafficCount() {
+      const config = trafficCounterConfig();
+      renderTrafficCount(null);
+      if (!config.enabled || !config.endpoint) return;
+
+      const controller = new AbortController();
+      const timer = window.setTimeout(() => controller.abort(), config.timeoutMs);
+
+      try {
+        const response = await fetch(config.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ app: config.app }),
+          cache: "no-store",
+          credentials: "omit",
+          mode: "cors",
+          signal: controller.signal
+        });
+        if (!response.ok) throw new Error(`Traffic counter returned ${response.status}`);
+
+        const payload = await response.json();
+        renderTrafficCount(payload?.count);
+      } catch (error) {
+        logTrafficCounterError(error);
+      } finally {
+        window.clearTimeout(timer);
+      }
     }
 
     function stockClass(value, item) {
@@ -1603,6 +1681,7 @@
     renderMeta();
     renderTabs();
     renderContent();
+    recordTrafficCount();
     loadLatestDashboardData();
   </script>
 </body>

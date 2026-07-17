@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-17T09:22:25",
+  "generatedAt": "2026-07-17T10:21:54",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-13T10:00:38",
-    "sizeBytes": 17031
+    "lastModified": "2026-07-17T10:21:31",
+    "sizeBytes": 17034
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -86,7 +86,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
+      "note": "7/8採購40卷到臺南倉，安排7/23台南專車"
     },
     "公版GPE-透明,180*500": {
       "enabled": true,
@@ -100,7 +100,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
+      "note": "7/8採購40卷到臺南倉，安排7/23台南專車"
     },
     "公版PP-透明,130*450": {
       "enabled": true,
@@ -132,7 +132,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購80卷到臺南倉，暫定7/23台南專車"
+      "note": "7/8採購80卷到臺南倉，安排7/23台南專車"
     },
     "公版PP-透明,180*500": {
       "enabled": true,
@@ -146,7 +146,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購40卷到臺南倉，暫定7/23台南專車"
+      "note": "7/8採購40卷到臺南倉，安排7/23台南專車"
     },
     "公版PET/ES-透明,130*350": {
       "enabled": true,
@@ -238,7 +238,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "5/13下單103卷，7/22送台北10箱，剩下7/23送台南16箱"
+      "note": "5/13下單103卷，7/22送台北40卷，7/23送台南60.8卷"
     },
     "私版GPE-特殊透明,180*450": {
       "enabled": true,

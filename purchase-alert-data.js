@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-24T15:14:24",
+  "generatedAt": "2026-07-24T15:18:20",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-24T15:12:25",
-    "sizeBytes": 17706
+    "lastModified": "2026-07-24T15:18:05",
+    "sizeBytes": 17849
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -114,16 +114,15 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "PP系列",
       "widthMm": 130.0,
       "thresholds": {
-        "台北倉": {
-          "watch": 100,
-          "order": 60
-        },
         "台南倉": {
           "watch": 50,
           "order": 30
         }
       },
-      "total": {},
+      "total": {
+        "watch": 120,
+        "order": 80
+      },
       "note": "7/8採購360卷到臺南倉，暫定8/13台南專車",
       "listPrice": 600
     },

@@ -47,6 +47,18 @@ def parse_number(value: Any) -> float | int | None:
     return int(number) if number.is_integer() else number
 
 
+def parse_optional_number(value: Any) -> float | int | None:
+    if value in (None, ""):
+        return None
+    try:
+        number = float(str(value).replace(",", "").strip())
+    except ValueError:
+        return None
+    if number < 0:
+        return None
+    return int(number) if number.is_integer() else number
+
+
 def enabled_value(value: Any) -> bool:
     return str(value or "Y").strip().upper() not in {"N", "NO", "FALSE", "0"}
 
@@ -138,7 +150,8 @@ def build_settings(path: Path) -> dict[str, Any]:
             if enabled:
                 enabled_count += 1
 
-        settings[name] = {
+        list_price = parse_optional_number(row.get("牌價"))
+        setting = {
             "enabled": enabled,
             "category": row.get("分類") or "",
             "series": row.get("系列") or "",
@@ -147,6 +160,9 @@ def build_settings(path: Path) -> dict[str, Any]:
             "total": total,
             "note": row.get("備註") or "",
         }
+        if list_price is not None:
+            setting["listPrice"] = list_price
+        settings[name] = setting
 
     return {
         "generatedAt": datetime.now().isoformat(timespec="seconds"),

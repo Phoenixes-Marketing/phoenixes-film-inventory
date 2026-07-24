@@ -538,6 +538,40 @@
       line-height: 1.3;
     }
 
+    .list-price-line {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 6px;
+    }
+
+    .list-price-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      min-height: 24px;
+      padding: 2px 7px;
+      border: 1px solid rgba(110, 76, 190, 0.22);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f7f2ff 0%, #eadfff 100%);
+      color: #563395;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 760;
+      vertical-align: 2px;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .list-price-label {
+      color: #7759a9;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .list-price-value {
+      font-variant-numeric: tabular-nums;
+    }
+
     .business-metrics {
       display: flex;
       flex-wrap: wrap;
@@ -607,6 +641,7 @@
     }
 
     .product-title-row {
+      position: relative;
       display: flex;
       align-items: flex-start;
       gap: 8px;
@@ -618,7 +653,14 @@
       min-width: 0;
     }
 
+    .product-title-row.has-note .product-name {
+      padding-right: 48px;
+    }
+
     .note-tag {
+      position: absolute;
+      top: 0;
+      right: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1298,6 +1340,20 @@
       return { text };
     }
 
+    function listPriceForItem(item) {
+      const value = purchaseAlertSettings.settings?.[item.name]?.listPrice;
+      if (value === null || value === undefined || value === "") return null;
+      const number = Number(value);
+      return Number.isFinite(number) ? number : null;
+    }
+
+    function formatListPrice(value) {
+      return `NT$${Number(value).toLocaleString("zh-TW", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      })}`;
+    }
+
     function hasItemNote(item) {
       return Boolean(noteForItem(item).text);
     }
@@ -1620,6 +1676,7 @@
     function itemTemplate(item) {
       const purchaseAlert = purchaseAlertForItem(item);
       const costSales = costSalesForItem(item);
+      const listPrice = listPriceForItem(item);
       const note = noteForItem(item);
       const hasNote = Boolean(note.text);
       const noteStarGradientId = `note-star-${item.code}`;
@@ -1649,6 +1706,14 @@
           </span>
         </div>
       ` : "";
+      const listPriceHtml = listPrice === null ? "" : `
+        <div class="list-price-line">
+          <span class="list-price-badge" aria-label="牌價 ${formatListPrice(listPrice)}">
+            <span class="list-price-label">牌價</span>
+            <span class="list-price-value">${formatListPrice(listPrice)}</span>
+          </span>
+        </div>
+      `;
       const warehouseCells = data.warehouseOrder.map((warehouse, index) => {
         const value = item.warehouses[warehouse] || 0;
         const label = data.warehouseLabels[warehouse] || warehouse;
@@ -1667,10 +1732,11 @@
       return `
         <article class="item-row ${Number(item.visibleTotal || 0) === 0 ? "zero-row" : ""}">
           <div class="product-cell">
-            <div class="product-title-row">
+            <div class="product-title-row${hasNote ? " has-note" : ""}">
               <div class="product-name">${escapeHtml(item.name)}</div>
               ${noteButtonHtml}
             </div>
+            ${listPriceHtml}
             <div class="product-sub">
               <span>${escapeHtml(item.code)}</span>
               <span>${escapeHtml(item.spec || "-")}</span>

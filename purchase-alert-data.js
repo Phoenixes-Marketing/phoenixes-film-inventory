@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-24T14:51:08",
+  "generatedAt": "2026-07-24T15:14:24",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-24T14:44:33",
-    "sizeBytes": 11374
+    "lastModified": "2026-07-24T15:12:25",
+    "sizeBytes": 17706
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -373,7 +373,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版ES-水果,130*290": {
       "enabled": true,
@@ -382,7 +383,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版ES-佳句,130*290": {
       "enabled": true,
@@ -391,7 +393,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版ES-繽紛,130*290": {
       "enabled": true,
@@ -400,7 +403,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版ES-愛護地球,130*290": {
       "enabled": true,
@@ -414,7 +418,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版GPE紙膜-全白,130*230": {
       "enabled": true,
@@ -428,7 +433,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版GPE紙膜-白底花,130*230": {
       "enabled": true,
@@ -437,7 +443,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版GPE紙膜-城堡,130*230": {
       "enabled": true,
@@ -446,7 +453,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版GPE紙膜-黑金銀,130*230": {
       "enabled": true,
@@ -455,7 +463,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     }
   },
   "summary": {

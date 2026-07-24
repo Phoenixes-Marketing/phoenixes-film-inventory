@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "phoenixes-film-inventory-cost",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "kv_namespaces": [
+    {
+      "binding": "COST_DATA",
+      "id": "d4fd052dced9489f9e93f09c20a78373"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://phoenixes-marketing.github.io",
+    "DATA_KEY": "average-cost-data",
+    "SESSION_DAYS": "30"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

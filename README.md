@@ -10,13 +10,13 @@
 
 目前流程：
 
-1. 將 ERP 分庫狀況表匯出成 `.xlsx`，放在來源資料夾。
+1. 將 ERP 分庫狀況表與庫存異動明細表匯出成 `.xlsx`，放在來源資料夾；兩份報表不必同時存在。
 2. 執行 `python scripts\build_dashboard.py` 更新 `public\phoenixes-film-inventory\dashboard-data.js`。
 3. 用 `scripts\start_dashboard.ps1` 啟動本機預覽。
 
 線上更新：
 
-1. 將 ERP 分庫狀況表匯出成 `.xlsx`，放在來源資料夾。
+1. 將要更新的 ERP 報表匯出成 `.xlsx`，放在來源資料夾。
 2. 雙擊 `update-online-inventory.cmd`。
 3. 等視窗顯示「線上網站已顯示最新資料」。
 
@@ -66,6 +66,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start_dashboard.ps1
 
 `docs\traffic-counter.md`
 
+平均成本登入、Cloudflare 資料與修改密碼方式記錄在：
+
+`docs\average-cost-access.md`
+
 如需讓同網段同事測試，可把 `Bind` 改成 `0.0.0.0`：
 
 ```powershell
@@ -86,7 +90,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start_dashboard.ps1 -Bind 0.0
 - `public\phoenixes-film-inventory\dashboard-data.js`：目前上線資料
 - `public\phoenixes-film-inventory\traffic-counter-config.js`：今日瀏覽次數 API 設定
 - `workers\traffic-counter`：今日瀏覽次數 Cloudflare Worker + D1 範本
+- `workers\average-cost-auth`：平均成本密碼驗證 Cloudflare Worker
 - `scripts\build_dashboard.py`：讀取 ERP Excel 並產生資料
+- `scripts\build_average_cost.py`：讀取庫存異動明細表並產生受保護的平均成本資料
+- `scripts\update_average_cost.ps1`：只在有新成本報表時更新 Cloudflare，否則維持原資料
 - `scripts\update_online_inventory.ps1`：一鍵更新與上傳 GitHub Pages
 - `scripts\setup_new_computer.ps1`：新電腦初始化與環境檢查
 - `update-online-inventory.cmd`：給使用者雙擊的更新入口

@@ -26,8 +26,12 @@ $PublicAppDir = Join-Path $PublicRoot "phoenixes-film-inventory"
 $DataFile = Join-Path $PublicAppDir "dashboard-data.js"
 $PurchaseAlertDataFile = Join-Path $PublicAppDir "purchase-alert-data.js"
 $TrafficCounterConfigFile = Join-Path $PublicAppDir "traffic-counter-config.js"
+$InternalAccessConfigFile = Join-Path $PublicAppDir "internal-access-config.js"
+$InternalAccessCssFile = Join-Path $PublicAppDir "internal-access.css"
+$InternalAccessJsFile = Join-Path $PublicAppDir "internal-access.js"
 $BuildScript = Join-Path $ProjectRoot "scripts\build_dashboard.py"
 $PurchaseAlertBuildScript = Join-Path $ProjectRoot "scripts\build_purchase_alerts.py"
+$AverageCostUpdateScript = Join-Path $ProjectRoot "scripts\update_average_cost.ps1"
 $PurchaseAlertSettingsName = [string][char]0x63A1 + [string][char]0x8CFC + [string][char]0x63D0 + [string][char]0x9192 + [string][char]0x8A2D + [string][char]0x5B9A + ".xlsx"
 $PurchaseAlertSettingsRelativePath = "data/$PurchaseAlertSettingsName"
 $PurchaseAlertSettingsFile = Join-Path $ProjectRoot ("data\$PurchaseAlertSettingsName")
@@ -183,6 +187,9 @@ function Copy-PublicFilesToDeploy {
         @{ From = $DataFile; To = "dashboard-data.js" },
         @{ From = $PurchaseAlertDataFile; To = "purchase-alert-data.js" },
         @{ From = $TrafficCounterConfigFile; To = "traffic-counter-config.js" },
+        @{ From = $InternalAccessConfigFile; To = "internal-access-config.js" },
+        @{ From = $InternalAccessCssFile; To = "internal-access.css" },
+        @{ From = $InternalAccessJsFile; To = "internal-access.js" },
         @{ From = (Join-Path $PublicRoot "robots.txt"); To = "robots.txt" },
         @{ From = (Join-Path $PublicRoot "favicon.svg"); To = "favicon.svg" }
     )
@@ -238,7 +245,7 @@ function Commit-And-Push-DeployIfNeeded {
         return
     }
 
-    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
+    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "internal-access-config.js", "internal-access.css", "internal-access.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage) -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("push", "github", "gh-pages") -WorkingDirectory $DeployDir
     Write-Ok "GitHub Pages pushed"
@@ -313,6 +320,9 @@ try {
     if (-not (Test-Path $PurchaseAlertBuildScript)) {
         throw "Purchase alert build script not found: $PurchaseAlertBuildScript"
     }
+    if (-not (Test-Path $AverageCostUpdateScript)) {
+        throw "Average cost update script not found: $AverageCostUpdateScript"
+    }
     if (-not (Test-Path $PurchaseAlertSettingsFile)) {
         throw "Purchase alert settings file not found: $PurchaseAlertSettingsFile"
     }
@@ -337,6 +347,9 @@ try {
     Write-Note "Configured alerts: $($purchaseAlertData.summary.configuredCount)"
     Write-Note "Enabled configured alerts: $($purchaseAlertData.summary.enabledConfiguredCount)"
     Write-Note "Generated at: $($purchaseAlertData.generatedAt)"
+
+    Write-Step "Updating protected average cost data"
+    & $AverageCostUpdateScript -Source $Source -DashboardData $DataFile
 
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
     $commitMessage = "Update inventory data $timestamp"

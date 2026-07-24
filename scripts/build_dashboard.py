@@ -5,7 +5,7 @@ import json
 import re
 import zipfile
 from collections import Counter, OrderedDict, defaultdict
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
@@ -301,18 +301,51 @@ def workbook_rows(path: Path) -> tuple[dict[int, dict[str, str]], str]:
         return rows, dimension_ref
 
 
+def inventory_workbook_signature(path: Path) -> tuple[bool, date | None]:
+    rows, _ = workbook_rows(path)
+    titles = [str(cells.get("A", "")).strip() for cells in rows.values()]
+    is_inventory = any(
+        title in {"分庫狀況表- 依分庫", "分庫狀況表- 依產品"}
+        for title in titles
+    )
+    if not is_inventory:
+        return False, None
+
+    report_dates = []
+    for cells in rows.values():
+        value = str(cells.get("Q", "")).strip()
+        if re.fullmatch(r"\d{4}/\d{2}/\d{2}", value):
+            report_dates.append(datetime.strptime(value, "%Y/%m/%d").date())
+    return True, max(report_dates) if report_dates else None
+
+
 def latest_xlsx(source: Path) -> Path:
     if source.is_file() and source.suffix.lower() == ".xlsx":
+        is_inventory, _ = inventory_workbook_signature(source)
+        if not is_inventory:
+            raise ValueError(f"Not an inventory workbook: {source}")
         return source
 
-    files = [
-        item
-        for item in source.glob("*.xlsx")
-        if item.is_file() and not item.name.startswith("~$")
-    ]
-    if not files:
-        raise FileNotFoundError(f"No .xlsx files found in {source}")
-    return max(files, key=lambda item: item.stat().st_mtime)
+    candidates: list[tuple[Path, date | None]] = []
+    for item in sorted(source.glob("*.xlsx")):
+        if not item.is_file() or item.name.startswith("~$"):
+            continue
+        try:
+            is_inventory, report_date = inventory_workbook_signature(item)
+        except (OSError, ValueError, zipfile.BadZipFile):
+            continue
+        if is_inventory:
+            candidates.append((item, report_date))
+
+    if not candidates:
+        raise FileNotFoundError(f"No valid inventory .xlsx files found in {source}")
+    return max(
+        candidates,
+        key=lambda candidate: (
+            candidate[1] or date.min,
+            candidate[0].stat().st_mtime,
+        ),
+    )[0]
 
 
 def report_layout(rows: dict[int, dict[str, str]]) -> str:

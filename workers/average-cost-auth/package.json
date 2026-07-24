@@ -1,0 +1,14 @@
+{
+  "name": "phoenixes-film-inventory-cost-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check": "wrangler types --check && tsc --noEmit",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.114.0"
+  }
+}

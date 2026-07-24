@@ -24,6 +24,7 @@ HTTPS 備用網址：
 - 能連到 ERP 匯出資料夾，預設為 `Z:\TO承憲\ERP\IACF`。
 - 已安裝 Git。
 - 已安裝 Python 3。
+- 已安裝 Node.js（用於更新 Cloudflare 上的平均成本）。
 - 這台電腦的 Git 有權限 push 到 `Phoenixes-Marketing/phoenixes-film-inventory`。
 - 可以執行 PowerShell 腳本。
 
@@ -68,6 +69,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_new_computer
 - 確認目前資料夾是 Git repo。
 - 確認或建立 `github` remote。
 - 安裝 `requirements.txt` 內的 Python 套件。
+- 安裝平均成本 Worker 所需的 Cloudflare 更新工具。
 - 檢查採購提醒設定檔是否存在。
 - 檢查 ERP 來源資料夾是否能讀取。
 - 建立桌面與開始功能表捷徑。
@@ -82,6 +84,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_new_computer
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_new_computer.ps1 -SkipPipInstall
+```
+
+如果這台電腦只需要更新公開庫存、不需要更新平均成本，可以跳過 Cloudflare 工具：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup_new_computer.ps1 -SkipCloudflareSetup
 ```
 
 ## GitHub 權限設定
@@ -109,7 +117,7 @@ repo 需要有一個叫 `github` 的 remote。初始化腳本會自動處理：
 
 `Z:\TO承憲\ERP\IACF`
 
-一鍵更新會抓這個資料夾中「修改時間最新」的 `.xlsx`，並排除 Excel 暫存檔 `~$*.xlsx`。
+一鍵更新會讀取 Excel 內容來辨識「分庫狀況表」與「庫存異動明細表」，各自選擇報表日期最新的版本，並排除 Excel 暫存檔 `~$*.xlsx`。兩份報表不必同時存在。
 
 如果新電腦的網路磁碟代號不同，先建議把公司共用資料夾掛成同樣的 `Z:`。如果短期內真的不同，也可以直接指定來源：
 
@@ -119,7 +127,7 @@ repo 需要有一個叫 `github` 的 remote。初始化腳本會自動處理：
 
 ## 日常使用流程
 
-1. 從 ERP 匯出最新分庫狀況表 Excel。
+1. 從 ERP 匯出要更新的分庫狀況表或庫存異動明細表 Excel。
 2. 放到 `Z:\TO承憲\ERP\IACF`。
 3. 雙擊桌面或開始功能表的「更新封膜庫存」捷徑。
 4. 等視窗顯示完成。
@@ -135,6 +143,9 @@ repo 需要有一個叫 `github` 的 remote。初始化腳本會自動處理：
 - `scripts\create_shortcuts.ps1`：建立桌面與開始功能表捷徑。
 - `scripts\build_dashboard.py`：讀 ERP Excel 並產生庫存資料。
 - `scripts\build_purchase_alerts.py`：讀採購提醒設定 Excel 並產生提醒資料。
+- `scripts\build_average_cost.py`：讀庫存異動明細表並產生平均成本資料。
+- `scripts\update_average_cost.ps1`：比較並更新 Cloudflare 上的平均成本。
+- `workers\average-cost-auth`：密碼驗證與平均成本 API。
 - `data\採購提醒設定.xlsx`：安全量與採購提醒條件設定。
 - `public\phoenixes-film-inventory\dashboard-data.js`：目前庫存資料。
 - `public\phoenixes-film-inventory\purchase-alert-data.js`：目前採購提醒設定資料。

@@ -1,6 +1,7 @@
 param(
     [string]$Source = "",
     [switch]$SkipPipInstall,
+    [switch]$SkipCloudflareSetup,
     [switch]$SkipShortcut,
     [switch]$NoSourceCheck
 )
@@ -93,6 +94,8 @@ $UpdateScript = Join-Path $ProjectRoot "scripts\update_online_inventory.ps1"
 $ShortcutScript = Join-Path $ProjectRoot "scripts\create_shortcuts.ps1"
 $PurchaseAlertSettingsName = Join-Chars @(0x63A1, 0x8CFC, 0x63D0, 0x9192, 0x8A2D, 0x5B9A)
 $PurchaseAlertSettingsFile = Join-Path $ProjectRoot "data\$PurchaseAlertSettingsName.xlsx"
+$AverageCostWorkerDir = Join-Path $ProjectRoot "workers\average-cost-auth"
+$AverageCostWorkerPackage = Join-Path $AverageCostWorkerDir "package.json"
 
 Write-Host "Phoenixes Film Inventory - New Computer Setup" -ForegroundColor White
 Write-Note "Project folder: $ProjectRoot"
@@ -132,7 +135,7 @@ else {
 }
 
 Write-Step "Checking project files"
-foreach ($path in @($RequirementsFile, $Updater, $UpdateScript, $ShortcutScript, $PurchaseAlertSettingsFile)) {
+foreach ($path in @($RequirementsFile, $Updater, $UpdateScript, $ShortcutScript, $PurchaseAlertSettingsFile, $AverageCostWorkerPackage)) {
     if (-not (Test-Path $path)) {
         throw "Missing required project file: $path"
     }
@@ -153,6 +156,33 @@ Write-Step "Verifying Python packages"
 $verifyArgs = $pythonArgsPrefix + @("-c", "import python_calamine, openpyxl; print('python packages OK')")
 Invoke-Checked -Command $pythonCommand.Source -Arguments $verifyArgs -WorkingDirectory $ProjectRoot
 Write-Ok "Python packages can be imported"
+
+if (-not $SkipCloudflareSetup) {
+    Write-Step "Installing Cloudflare average cost updater"
+    Require-Command -Name "node" | Out-Null
+    $npmCommand = Get-Command "npm.cmd" -ErrorAction SilentlyContinue
+    if (-not $npmCommand) {
+        $npmCommand = Require-Command -Name "npm"
+    }
+    Invoke-Checked -Command $npmCommand.Source -Arguments @("install") -WorkingDirectory $AverageCostWorkerDir
+    $wrangler = Join-Path $AverageCostWorkerDir "node_modules\.bin\wrangler.cmd"
+    if (-not (Test-Path -LiteralPath $wrangler)) {
+        throw "Cloudflare updater was not installed: $wrangler"
+    }
+    Write-Ok "Cloudflare update tool installed"
+
+    & $wrangler whoami
+    if ($LASTEXITCODE -eq 0) {
+        Write-Ok "Cloudflare login is ready"
+    }
+    else {
+        Write-Note "Cloudflare is not signed in yet. Run this once before updating average cost:"
+        Write-Note "$wrangler login"
+    }
+}
+else {
+    Write-Note "Cloudflare average cost updater setup skipped"
+}
 
 if (-not $NoSourceCheck) {
     Write-Step "Checking ERP Excel source folder"
@@ -188,3 +218,4 @@ Write-Ok "This computer is ready to update the online inventory dashboard."
 Write-Note "Export the ERP Excel report to: $Source"
 Write-Note "Then run: $Updater"
 Write-Note "If Git push fails, sign in or configure GitHub SSH/HTTPS credentials for this repo."
+Write-Note "If average cost stays unchanged, confirm this computer is signed in to Cloudflare."

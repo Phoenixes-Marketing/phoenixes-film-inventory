@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-24T12:56:56",
+  "generatedAt": "2026-07-24T14:51:08",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-24T12:56:42",
-    "sizeBytes": 16965
+    "lastModified": "2026-07-24T14:44:33",
+    "sizeBytes": 11374
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -23,7 +23,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 200,
         "order": 150
       },
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版ES-透明,160*350": {
       "enabled": true,
@@ -40,7 +41,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 60,
         "order": 40
       },
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版GPE-透明,130*350": {
       "enabled": true,
@@ -54,7 +56,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 540
     },
     "公版GPE-透明,130*450": {
       "enabled": true,
@@ -72,7 +75,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版GPE-透明,160*500": {
       "enabled": true,
@@ -86,7 +90,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 960
     },
     "公版GPE-透明,180*500": {
       "enabled": true,
@@ -100,7 +105,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1200
     },
     "公版PP-透明,130*450": {
       "enabled": true,
@@ -118,7 +124,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購360卷到臺南倉，暫定8/13台南專車"
+      "note": "7/8採購360卷到臺南倉，暫定8/13台南專車",
+      "listPrice": 600
     },
     "公版PP-透明,160*500": {
       "enabled": true,
@@ -132,7 +139,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 960
     },
     "公版PP-透明,180*500": {
       "enabled": true,
@@ -146,7 +154,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1200
     },
     "公版PET/ES-透明,130*350": {
       "enabled": true,
@@ -160,7 +169,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 990
     },
     "公版PET/ES-透明,160*350": {
       "enabled": true,
@@ -174,7 +184,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1400
     },
     "公版PET/ES電鍍,130*290": {
       "enabled": true,
@@ -187,7 +198,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 950
     },
     "公版GPE-消光-全白,130*350": {
       "enabled": true,
@@ -207,7 +219,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版GPE-消光-滿版-全黑,130*350": {
       "enabled": true,
@@ -224,7 +237,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 600
     },
     "公版GPE-透明,225*350": {
       "enabled": true,
@@ -238,7 +252,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1400
     },
     "私版GPE-特殊透明,180*450": {
       "enabled": true,
@@ -250,7 +265,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 40,
         "order": 20
       },
-      "note": "7/8台北下單53卷，送北倉，交期未知"
+      "note": "7/8台北下單53卷，送北倉，交期未知",
+      "listPrice": 1200
     },
     "公版PP-特殊透明,180*500": {
       "enabled": true,
@@ -264,7 +280,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購96卷，送台中倉，交期未知"
+      "note": "7/8採購96卷，送台中倉，交期未知",
+      "listPrice": 1200
     },
     "公版PP-透明,225*500": {
       "enabled": true,
@@ -310,7 +327,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版PET//CPP-MAGIC CUT,180*400": {
       "enabled": true,
@@ -319,7 +337,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 180.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1400
     },
     "公版PE厚醬包膜,130*400": {
       "enabled": true,

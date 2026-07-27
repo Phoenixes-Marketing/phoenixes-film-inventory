@@ -1,10 +1,10 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-07-27T13:06:15",
+  "generatedAt": "2026-07-27T16:28:51",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~4.xlsx",
-    "filename": "分庫狀況表- 依分庫~4.xlsx",
-    "lastModified": "2026-07-27T13:06:09",
-    "sizeBytes": 19077,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~5.xlsx",
+    "filename": "分庫狀況表- 依分庫~5.xlsx",
+    "lastModified": "2026-07-27T16:28:44",
+    "sizeBytes": 19076,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
@@ -297,13 +297,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 3
       },
       "warehouses": {
-        "台北倉": 8,
+        "台北倉": 4,
         "台中倉": 12,
         "台南倉": 56,
         "高雄倉": 23,
         "欣凱倉": 0
       },
-      "visibleTotal": 99,
+      "visibleTotal": 95,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -658,12 +658,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 22,
-        "台中倉": 9,
+        "台中倉": 5,
         "台南倉": 46,
         "高雄倉": 31,
         "欣凱倉": 280
       },
-      "visibleTotal": 388,
+      "visibleTotal": 384,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -718,12 +718,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 0,
-        "台中倉": 35,
+        "台中倉": 31,
         "台南倉": 0,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 35,
+      "visibleTotal": 31,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1141,13 +1141,13 @@ window.INVENTORY_DASHBOARD_DATA = {
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 1364.35,
-      "台中倉": 1039.45,
+      "台北倉": 1360.35,
+      "台中倉": 1031.45,
       "台南倉": 2209.43,
       "高雄倉": 462.3,
       "欣凱倉": 608
     },
-    "visibleGrandTotal": 5683.53,
+    "visibleGrandTotal": 5671.53,
     "hiddenWarehouseTotals": {},
     "hiddenStockItemCount": 0,
     "warehouseRowsFound": {

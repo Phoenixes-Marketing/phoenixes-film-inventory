@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-07-31T11:15:11",
+  "generatedAt": "2026-07-31T11:25:25",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-07-24T15:18:05",
-    "sizeBytes": 17849
+    "lastModified": "2026-07-31T11:25:12",
+    "sizeBytes": 17973
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -279,7 +279,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購96卷，送台中倉，交期未知",
+      "note": "7/8採購96卷，預計8/13送台中倉",
       "listPrice": 1200
     },
     "公版PP-透明,225*500": {

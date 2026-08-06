@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>封王封膜庫存監控</title>
   <script src="./dashboard-data.js"></script>
+  <script src="./material-spec-data.js?v=20260806-material-specs"></script>
   <script src="./purchase-alert-data.js"></script>
   <script src="./traffic-counter-config.js?v=20260709-traffic-api"></script>
   <script src="./internal-access-config.js?v=20260724-cost-auth"></script>
@@ -533,9 +534,23 @@
       flex-wrap: wrap;
       gap: 5px 9px;
       margin-top: 6px;
-      color: var(--muted);
+      color: var(--quiet);
       font-size: 14px;
       line-height: 1.3;
+    }
+
+    .product-code {
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .product-sub-separator {
+      flex: 0 0 auto;
+    }
+
+    .product-material {
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .list-price-line {
@@ -1168,7 +1183,7 @@
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="m21 21-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
-                <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、規格">
+                <input id="search" type="search" autocomplete="off" placeholder="搜尋品名、編碼、材質">
               </label>
               <div class="source-line" id="source-line">
                 <span id="source-filename">資料來源：-</span>
@@ -1207,6 +1222,7 @@
       settings: {},
       summary: {}
     };
+    const productMaterialSpecs = window.PRODUCT_MATERIAL_SPECS?.items || {};
 
     const state = {
       query: "",
@@ -1354,6 +1370,51 @@
       })}`;
     }
 
+    function normalizeMaterialComposition(value) {
+      return String(value || "")
+        .trim()
+        .replace(/\s*\/\s*/g, " / ")
+        .replace(/\b([A-Z]+)\s*(\d+(?:\.\d+)?)/g, "$1 $2")
+        .replace(/\s+/g, " ");
+    }
+
+    function erpMaterialSpecForItem(item) {
+      const raw = String(item.spec || "");
+      const match = raw.match(/(NY\s*\d+(?:\.\d+)?\s*\/\s*PE\s*\d+(?:\.\d+)?)\s*[-–]\s*總\s*(\d+(?:\.\d+)?)\s*(?:μm|um)/i);
+      if (!match) return null;
+      return {
+        composition: normalizeMaterialComposition(match[1]),
+        totalThicknessUm: Number(match[2]),
+        sourceKind: "erp",
+        sourceDate: data.source?.reportDates?.at(-1)?.replaceAll("/", "-") || "",
+        thicknessBasis: "quoted"
+      };
+    }
+
+    function materialSpecForItem(item) {
+      const quoted = productMaterialSpecs[item.code];
+      if (quoted?.composition && Number.isFinite(Number(quoted.totalThicknessUm))) {
+        return {
+          ...quoted,
+          composition: normalizeMaterialComposition(quoted.composition),
+          totalThicknessUm: Number(quoted.totalThicknessUm)
+        };
+      }
+      return erpMaterialSpecForItem(item);
+    }
+
+    function materialEvidenceLabel(spec) {
+      const sourceLabels = {
+        quotation: "報價單",
+        supplier_document: "供應商規格單",
+        erp: "ERP 規格",
+        line_note: "LINE 記事本"
+      };
+      const source = sourceLabels[spec.sourceKind] || "規格資料";
+      const basis = spec.thicknessBasis === "calculated" ? "，總厚度依各層數值加總" : "";
+      return `資料依據：${source}${spec.sourceDate ? ` ${spec.sourceDate}` : ""}${basis}`;
+    }
+
     function hasItemNote(item) {
       return Boolean(noteForItem(item).text);
     }
@@ -1395,7 +1456,8 @@
     function matchesQuery(item) {
       const query = state.query.trim().toLocaleLowerCase("zh-Hant-TW");
       if (!query) return true;
-      const haystack = `${item.name} ${item.spec}`.toLocaleLowerCase("zh-Hant-TW");
+      const materialSpec = materialSpecForItem(item);
+      const haystack = `${item.code} ${item.name} ${materialSpec?.composition || ""} ${materialSpec?.totalThicknessUm || ""}`.toLocaleLowerCase("zh-Hant-TW");
       return haystack.includes(query);
     }
 
@@ -1677,6 +1739,7 @@
       const purchaseAlert = purchaseAlertForItem(item);
       const costSales = costSalesForItem(item);
       const listPrice = listPriceForItem(item);
+      const materialSpec = materialSpecForItem(item);
       const note = noteForItem(item);
       const hasNote = Boolean(note.text);
       const noteStarGradientId = `note-star-${item.code}`;
@@ -1714,6 +1777,12 @@
           </span>
         </div>
       `;
+      const materialSpecHtml = materialSpec ? `
+        <span class="product-sub-separator" aria-hidden="true">|</span>
+        <span class="product-material" title="${escapeHtml(materialEvidenceLabel(materialSpec))}">
+          ${escapeHtml(materialSpec.composition)} · 總厚度 ${formatNumber(materialSpec.totalThicknessUm)} μm
+        </span>
+      ` : "";
       const warehouseCells = data.warehouseOrder.map((warehouse, index) => {
         const value = item.warehouses[warehouse] || 0;
         const label = data.warehouseLabels[warehouse] || warehouse;
@@ -1738,8 +1807,8 @@
             </div>
             ${listPriceHtml}
             <div class="product-sub">
-              <span>${escapeHtml(item.code)}</span>
-              <span>${escapeHtml(item.spec || "-")}</span>
+              <span class="product-code">${escapeHtml(item.code)}</span>
+              ${materialSpecHtml}
             </div>
             ${businessMetricsHtml}
             ${purchaseAlertHtml}

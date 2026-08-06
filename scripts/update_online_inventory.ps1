@@ -24,6 +24,7 @@ $ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $PublicRoot = Join-Path $ProjectRoot "public"
 $PublicAppDir = Join-Path $PublicRoot "phoenixes-film-inventory"
 $DataFile = Join-Path $PublicAppDir "dashboard-data.js"
+$MaterialSpecDataFile = Join-Path $PublicAppDir "material-spec-data.js"
 $PurchaseAlertDataFile = Join-Path $PublicAppDir "purchase-alert-data.js"
 $TrafficCounterConfigFile = Join-Path $PublicAppDir "traffic-counter-config.js"
 $InternalAccessConfigFile = Join-Path $PublicAppDir "internal-access-config.js"
@@ -185,6 +186,7 @@ function Copy-PublicFilesToDeploy {
     $copyMap = @(
         @{ From = (Join-Path $PublicAppDir "index.html"); To = "index.html" },
         @{ From = $DataFile; To = "dashboard-data.js" },
+        @{ From = $MaterialSpecDataFile; To = "material-spec-data.js" },
         @{ From = $PurchaseAlertDataFile; To = "purchase-alert-data.js" },
         @{ From = $TrafficCounterConfigFile; To = "traffic-counter-config.js" },
         @{ From = $InternalAccessConfigFile; To = "internal-access-config.js" },
@@ -245,7 +247,7 @@ function Commit-And-Push-DeployIfNeeded {
         return
     }
 
-    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "internal-access-config.js", "internal-access.css", "internal-access.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
+    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "material-spec-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "internal-access-config.js", "internal-access.css", "internal-access.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage) -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("push", "github", "gh-pages") -WorkingDirectory $DeployDir
     Write-Ok "GitHub Pages pushed"

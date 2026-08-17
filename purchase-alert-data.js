@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-08-14T15:01:42",
+  "generatedAt": "2026-08-17T09:17:15",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-08-11T13:08:36",
-    "sizeBytes": 18045
+    "lastModified": "2026-08-17T09:16:25",
+    "sizeBytes": 17924
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -23,7 +23,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 200,
         "order": 150
       },
-      "note": "8/10採購360卷到台中倉，交期未知",
+      "note": "",
       "listPrice": 600
     },
     "公版ES-透明,160*350": {
@@ -123,7 +123,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 120,
         "order": 80
       },
-      "note": "7/8採購360卷到臺南倉，暫定8/13台南專車",
+      "note": "",
       "listPrice": 600
     },
     "公版PP-透明,160*500": {
@@ -264,7 +264,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 40,
         "order": 20
       },
-      "note": "7/8台北下單53卷，送北倉，交期未知",
+      "note": "",
       "listPrice": 1200
     },
     "公版PP-特殊透明,180*500": {
@@ -279,7 +279,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "7/8採購96卷，預計8/13送台中倉",
+      "note": "",
       "listPrice": 1200
     },
     "公版PP-透明,225*500": {

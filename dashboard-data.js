@@ -1,14 +1,14 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-08-18T15:46:22",
+  "generatedAt": "2026-08-19T09:22:20",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~28.xlsx",
-    "filename": "分庫狀況表- 依分庫~28.xlsx",
-    "lastModified": "2026-08-18T15:46:10",
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~34.xlsx",
+    "filename": "分庫狀況表- 依分庫~34.xlsx",
+    "lastModified": "2026-08-19T09:21:29",
     "sizeBytes": 19087,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
-      "2026/08/18"
+      "2026/08/19"
     ],
     "pages": [
       "1 / 5",
@@ -177,13 +177,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 1
       },
       "warehouses": {
-        "台北倉": 98,
+        "台北倉": 96,
         "台中倉": 0,
         "台南倉": 37,
         "高雄倉": 3,
         "欣凱倉": 0
       },
-      "visibleTotal": 138,
+      "visibleTotal": 136,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -207,13 +207,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 0
       },
       "warehouses": {
-        "台北倉": 11,
+        "台北倉": 371,
         "台中倉": 162,
         "台南倉": 0,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 173,
+      "visibleTotal": 533,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -297,13 +297,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 3
       },
       "warehouses": {
-        "台北倉": 22,
+        "台北倉": 23,
         "台中倉": 15,
         "台南倉": 52,
         "高雄倉": 19,
         "欣凱倉": 0
       },
-      "visibleTotal": 108,
+      "visibleTotal": 109,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1141,13 +1141,13 @@ window.INVENTORY_DASHBOARD_DATA = {
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 993.35,
+      "台北倉": 1352.35,
       "台中倉": 1037.45,
       "台南倉": 1875.43,
       "高雄倉": 454,
       "欣凱倉": 564
     },
-    "visibleGrandTotal": 4924.23,
+    "visibleGrandTotal": 5283.23,
     "hiddenWarehouseTotals": {},
     "hiddenStockItemCount": 0,
     "warehouseRowsFound": {

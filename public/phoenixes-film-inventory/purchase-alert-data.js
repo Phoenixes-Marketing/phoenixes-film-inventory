@@ -1,5 +1,5 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-08-27T13:16:32",
+  "generatedAt": "2026-08-27T13:22:21",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",

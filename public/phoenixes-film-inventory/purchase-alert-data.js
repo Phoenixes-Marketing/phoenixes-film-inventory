@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-08-31T09:19:20",
+  "generatedAt": "2026-08-31T09:30:56",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-08-31T09:18:43",
-    "sizeBytes": 18088
+    "lastModified": "2026-08-31T09:30:44",
+    "sizeBytes": 18131
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -65,10 +65,6 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "GPE系列",
       "widthMm": 130.0,
       "thresholds": {
-        "台北倉": {
-          "watch": 150,
-          "order": 100
-        },
         "台南倉": {
           "watch": 100,
           "order": 60

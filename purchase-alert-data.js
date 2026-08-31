@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-08-31T09:08:35",
+  "generatedAt": "2026-08-31T09:19:20",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-08-21T11:16:03",
-    "sizeBytes": 18090
+    "lastModified": "2026-08-31T09:18:43",
+    "sizeBytes": 18088
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -75,7 +75,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "已採360卷，預計8/27(四)送台南",
+      "note": "",
       "listPrice": 600
     },
     "公版GPE-透明,160*500": {
@@ -167,7 +167,10 @@ window.PURCHASE_ALERT_SETTINGS = {
           "order": 60
         }
       },
-      "total": {},
+      "total": {
+        "watch": 150,
+        "order": 120
+      },
       "note": "8/17採購617卷，預計九月底完成",
       "listPrice": 990
     },
@@ -206,12 +209,6 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "GPE系列",
       "widthMm": 130.0,
       "thresholds": {
-        "台北倉": {
-          "order": 10
-        },
-        "台中倉": {
-          "order": 10
-        },
         "台南倉": {
           "watch": 100,
           "order": 60
@@ -227,9 +224,6 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "GPE系列",
       "widthMm": 130.0,
       "thresholds": {
-        "台中倉": {
-          "watch": 30
-        },
         "台南倉": {
           "watch": 30,
           "order": 10
@@ -272,13 +266,11 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山/欣凱/佑泰專板",
       "series": "PP系列",
       "widthMm": 180.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 40,
-          "order": 28
-        }
+      "thresholds": {},
+      "total": {
+        "watch": 100,
+        "order": 80
       },
-      "total": {},
       "note": "",
       "listPrice": 1200
     },

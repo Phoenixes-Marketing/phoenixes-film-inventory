@@ -1,14 +1,14 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-09-04T16:23:15",
+  "generatedAt": "2026-09-07T09:15:21",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~47.xlsx",
-    "filename": "分庫狀況表- 依分庫~47.xlsx",
-    "lastModified": "2026-09-04T16:23:01",
-    "sizeBytes": 19114,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~48.xlsx",
+    "filename": "分庫狀況表- 依分庫~48.xlsx",
+    "lastModified": "2026-09-07T09:15:05",
+    "sizeBytes": 19115,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
-      "2026/09/04"
+      "2026/09/07"
     ],
     "pages": [
       "1 / 5",
@@ -208,12 +208,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 276,
-        "台中倉": 136,
+        "台中倉": 135,
         "台南倉": 0,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 412,
+      "visibleTotal": 411,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -571,11 +571,11 @@ window.INVENTORY_DASHBOARD_DATA = {
       "warehouses": {
         "台北倉": 6,
         "台中倉": 0,
-        "台南倉": 33.8,
+        "台南倉": 29.8,
         "高雄倉": 4,
         "欣凱倉": 0
       },
-      "visibleTotal": 43.8,
+      "visibleTotal": 39.8,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -780,12 +780,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 1.65,
-        "台中倉": 79.65,
+        "台中倉": 77.65,
         "台南倉": 0,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 81.3,
+      "visibleTotal": 79.3,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1144,12 +1144,12 @@ window.INVENTORY_DASHBOARD_DATA = {
     "unmatchedItems": [],
     "warehouseTotals": {
       "台北倉": 794.55,
-      "台中倉": 880.85,
-      "台南倉": 1735.43,
+      "台中倉": 877.85,
+      "台南倉": 1731.43,
       "高雄倉": 471,
       "欣凱倉": 432
     },
-    "visibleGrandTotal": 4313.83,
+    "visibleGrandTotal": 4306.83,
     "hiddenWarehouseTotals": {
       "退貨倉-台南": 4
     },

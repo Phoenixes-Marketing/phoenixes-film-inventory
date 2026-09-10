@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-09-10T09:12:20",
+  "generatedAt": "2026-09-10T13:26:07",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-08-31T09:30:44",
-    "sizeBytes": 18131
+    "lastModified": "2026-09-10T13:25:03",
+    "sizeBytes": 18247
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -41,7 +41,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 60,
         "order": 40
       },
-      "note": "",
+      "note": "9/10採購120卷，預計9/17到貨，Sally預約80卷",
       "listPrice": 900
     },
     "公版GPE-透明,130*350": {
@@ -86,7 +86,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "",
+      "note": "9/10採購40卷，預計9/17到貨",
       "listPrice": 960
     },
     "公版GPE-透明,180*500": {
@@ -134,7 +134,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "",
+      "note": "9/10採購40卷，預計9/17到貨",
       "listPrice": 960
     },
     "公版PP-透明,180*500": {
@@ -149,7 +149,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "",
+      "note": "9/10採購40卷，預計9/17到貨",
       "listPrice": 1200
     },
     "公版PET/ES-透明,130*350": {

@@ -1,14 +1,14 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-09-09T09:13:16",
+  "generatedAt": "2026-09-10T09:12:19",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~2.xlsx",
-    "filename": "分庫狀況表- 依分庫~2.xlsx",
-    "lastModified": "2026-09-09T09:13:12",
-    "sizeBytes": 19113,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~3.xlsx",
+    "filename": "分庫狀況表- 依分庫~3.xlsx",
+    "lastModified": "2026-09-10T09:12:11",
+    "sizeBytes": 19111,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
-      "2026/09/09"
+      "2026/09/10"
     ],
     "pages": [
       "1 / 5",
@@ -240,10 +240,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 117,
         "台中倉": 0,
         "台南倉": 363,
-        "高雄倉": 103,
+        "高雄倉": 102,
         "欣凱倉": 0
       },
-      "visibleTotal": 583,
+      "visibleTotal": 582,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -267,13 +267,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 2
       },
       "warehouses": {
-        "台北倉": 79,
+        "台北倉": 80,
         "台中倉": 8,
         "台南倉": 27,
         "高雄倉": 12,
         "欣凱倉": 0
       },
-      "visibleTotal": 126,
+      "visibleTotal": 127,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -297,13 +297,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 3
       },
       "warehouses": {
-        "台北倉": 4,
+        "台北倉": 44,
         "台中倉": 15,
         "台南倉": 48,
         "高雄倉": 19,
         "欣凱倉": 0
       },
-      "visibleTotal": 86,
+      "visibleTotal": 126,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -512,10 +512,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 8,
         "台中倉": 15,
         "台南倉": 5,
-        "高雄倉": 64,
+        "高雄倉": 34,
         "欣凱倉": 0
       },
-      "visibleTotal": 92,
+      "visibleTotal": 62,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -540,12 +540,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 5,
-        "台中倉": 46,
+        "台中倉": 44,
         "台南倉": 3,
         "高雄倉": 32,
         "欣凱倉": 0
       },
-      "visibleTotal": 86,
+      "visibleTotal": 84,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -662,10 +662,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 10,
         "台中倉": 23,
         "台南倉": 30,
-        "高雄倉": 29,
+        "高雄倉": 25,
         "欣凱倉": 272
       },
-      "visibleTotal": 364,
+      "visibleTotal": 360,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -689,13 +689,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 0
       },
       "warehouses": {
-        "台北倉": 0.7,
+        "台北倉": 36.7,
         "台中倉": 1.4,
         "台南倉": 2.63,
         "高雄倉": 3,
         "欣凱倉": 0
       },
-      "visibleTotal": 7.73,
+      "visibleTotal": 43.73,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -872,10 +872,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 0,
         "台中倉": 2,
         "台南倉": 1,
-        "高雄倉": 10,
+        "高雄倉": 6,
         "欣凱倉": 0
       },
-      "visibleTotal": 13,
+      "visibleTotal": 9,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -992,10 +992,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 0,
         "台中倉": 0,
         "台南倉": 103,
-        "高雄倉": 24,
+        "高雄倉": 4,
         "欣凱倉": 0
       },
-      "visibleTotal": 127,
+      "visibleTotal": 107,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1143,13 +1143,13 @@ window.INVENTORY_DASHBOARD_DATA = {
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 764.55,
-      "台中倉": 840.85,
+      "台北倉": 841.55,
+      "台中倉": 838.85,
       "台南倉": 1544.43,
-      "高雄倉": 465,
+      "高雄倉": 406,
       "欣凱倉": 432
     },
-    "visibleGrandTotal": 4046.83,
+    "visibleGrandTotal": 4062.83,
     "hiddenWarehouseTotals": {
       "退貨倉-台南": 4
     },

@@ -1,10 +1,10 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-09-10T09:12:19",
+  "generatedAt": "2026-09-10T13:26:05",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~3.xlsx",
-    "filename": "分庫狀況表- 依分庫~3.xlsx",
-    "lastModified": "2026-09-10T09:12:11",
-    "sizeBytes": 19111,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~4.xlsx",
+    "filename": "分庫狀況表- 依分庫~4.xlsx",
+    "lastModified": "2026-09-10T13:25:56",
+    "sizeBytes": 19112,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
@@ -149,11 +149,11 @@ window.INVENTORY_DASHBOARD_DATA = {
       "warehouses": {
         "台北倉": 14,
         "台中倉": 309,
-        "台南倉": 73,
+        "台南倉": 72,
         "高雄倉": 2,
         "欣凱倉": 0
       },
-      "visibleTotal": 398,
+      "visibleTotal": 397,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -208,12 +208,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 276,
-        "台中倉": 110,
+        "台中倉": 104,
         "台南倉": 0,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 386,
+      "visibleTotal": 380,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -510,12 +510,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 8,
-        "台中倉": 15,
+        "台中倉": 9,
         "台南倉": 5,
         "高雄倉": 34,
         "欣凱倉": 0
       },
-      "visibleTotal": 62,
+      "visibleTotal": 56,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -630,12 +630,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 0,
-        "台中倉": 109.7,
+        "台中倉": 97.7,
         "台南倉": 25,
         "高雄倉": 0,
         "欣凱倉": 0
       },
-      "visibleTotal": 134.7,
+      "visibleTotal": 122.7,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -660,12 +660,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 10,
-        "台中倉": 23,
+        "台中倉": 31,
         "台南倉": 30,
         "高雄倉": 25,
         "欣凱倉": 272
       },
-      "visibleTotal": 360,
+      "visibleTotal": 368,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -690,12 +690,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 36.7,
-        "台中倉": 1.4,
+        "台中倉": 100.6,
         "台南倉": 2.63,
         "高雄倉": 3,
         "欣凱倉": 0
       },
-      "visibleTotal": 43.73,
+      "visibleTotal": 142.93,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1144,12 +1144,12 @@ window.INVENTORY_DASHBOARD_DATA = {
     "unmatchedItems": [],
     "warehouseTotals": {
       "台北倉": 841.55,
-      "台中倉": 838.85,
-      "台南倉": 1544.43,
+      "台中倉": 922.05,
+      "台南倉": 1543.43,
       "高雄倉": 406,
       "欣凱倉": 432
     },
-    "visibleGrandTotal": 4062.83,
+    "visibleGrandTotal": 4145.03,
     "hiddenWarehouseTotals": {
       "退貨倉-台南": 4
     },

@@ -1,14 +1,14 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-09-10T14:12:49",
+  "generatedAt": "2026-09-11T09:14:36",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~4.xlsx",
-    "filename": "分庫狀況表- 依分庫~4.xlsx",
-    "lastModified": "2026-09-10T13:25:56",
-    "sizeBytes": 19112,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~5.xlsx",
+    "filename": "分庫狀況表- 依分庫~5.xlsx",
+    "lastModified": "2026-09-11T09:13:06",
+    "sizeBytes": 19113,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
-      "2026/09/10"
+      "2026/09/11"
     ],
     "pages": [
       "1 / 5",
@@ -510,12 +510,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 8,
-        "台中倉": 9,
+        "台中倉": 3,
         "台南倉": 5,
         "高雄倉": 34,
         "欣凱倉": 0
       },
-      "visibleTotal": 56,
+      "visibleTotal": 50,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -660,12 +660,12 @@ window.INVENTORY_DASHBOARD_DATA = {
       },
       "warehouses": {
         "台北倉": 10,
-        "台中倉": 31,
+        "台中倉": 29,
         "台南倉": 30,
         "高雄倉": 25,
         "欣凱倉": 272
       },
-      "visibleTotal": 368,
+      "visibleTotal": 366,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -689,13 +689,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 0
       },
       "warehouses": {
-        "台北倉": 36.7,
+        "台北倉": 35.7,
         "台中倉": 100.6,
         "台南倉": 2.63,
         "高雄倉": 3,
         "欣凱倉": 0
       },
-      "visibleTotal": 142.93,
+      "visibleTotal": 141.93,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1143,13 +1143,13 @@ window.INVENTORY_DASHBOARD_DATA = {
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 841.55,
-      "台中倉": 922.05,
+      "台北倉": 840.55,
+      "台中倉": 914.05,
       "台南倉": 1543.43,
       "高雄倉": 406,
       "欣凱倉": 432
     },
-    "visibleGrandTotal": 4145.03,
+    "visibleGrandTotal": 4136.03,
     "hiddenWarehouseTotals": {
       "退貨倉-台南": 4
     },

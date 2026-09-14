@@ -193,6 +193,7 @@ function Copy-PublicFilesToDeploy {
         @{ From = $InternalAccessCssFile; To = "internal-access.css" },
         @{ From = $InternalAccessJsFile; To = "internal-access.js" },
         @{ From = (Join-Path $PublicRoot "robots.txt"); To = "robots.txt" },
+        @{ From = (Join-Path $PublicAppDir "favicon.png"); To = "favicon.png" },
         @{ From = (Join-Path $PublicRoot "favicon.svg"); To = "favicon.svg" }
     )
 
@@ -247,7 +248,7 @@ function Commit-And-Push-DeployIfNeeded {
         return
     }
 
-    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "material-spec-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "internal-access-config.js", "internal-access.css", "internal-access.js", "robots.txt", "favicon.svg", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
+    Invoke-Git -Arguments @("add", "index.html", "dashboard-data.js", "material-spec-data.js", "purchase-alert-data.js", "traffic-counter-config.js", "internal-access-config.js", "internal-access.css", "internal-access.js", "robots.txt", "favicon.svg", "favicon.png", ".nojekyll", "README.md") -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("commit", "-m", $CommitMessage) -WorkingDirectory $DeployDir
     Invoke-Git -Arguments @("push", "github", "gh-pages") -WorkingDirectory $DeployDir
     Write-Ok "GitHub Pages pushed"

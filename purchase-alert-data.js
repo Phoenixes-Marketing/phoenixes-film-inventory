@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-10-07T09:06:16",
+  "generatedAt": "2026-10-08T09:14:24",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-10-05T09:14:43",
-    "sizeBytes": 18457
+    "lastModified": "2026-10-08T09:14:06",
+    "sizeBytes": 18453
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -13,12 +13,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山公版",
       "series": "ES系列",
       "widthMm": 130.0,
-      "thresholds": {
-        "台中倉": {
-          "watch": 100,
-          "order": 60
-        }
-      },
+      "thresholds": {},
       "total": {
         "watch": 200,
         "order": 150
@@ -37,10 +32,7 @@ window.PURCHASE_ALERT_SETTINGS = {
           "order": 25
         }
       },
-      "total": {
-        "watch": 60,
-        "order": 40
-      },
+      "total": {},
       "note": "",
       "listPrice": 900
     },
@@ -49,13 +41,11 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山公版",
       "series": "GPE系列",
       "widthMm": 130.0,
-      "thresholds": {
-        "台北倉": {
-          "watch": 100,
-          "order": 60
-        }
+      "thresholds": {},
+      "total": {
+        "watch": 100,
+        "order": 60
       },
-      "total": {},
       "note": "",
       "listPrice": 540
     },
@@ -64,13 +54,11 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山公版",
       "series": "GPE系列",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 100,
-          "order": 60
-        }
+      "thresholds": {},
+      "total": {
+        "watch": 120,
+        "order": 100
       },
-      "total": {},
       "note": "",
       "listPrice": 600
     },
@@ -109,12 +97,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山公版",
       "series": "PP系列",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 50,
-          "order": 30
-        }
-      },
+      "thresholds": {},
       "total": {
         "watch": 120,
         "order": 80
@@ -190,11 +173,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "金山/欣凱/佑泰專板",
       "series": "PET/ES系列",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "order": 10
-        }
-      },
+      "thresholds": {},
       "total": {},
       "note": "",
       "listPrice": 950
@@ -210,7 +189,10 @@ window.PURCHASE_ALERT_SETTINGS = {
           "order": 60
         }
       },
-      "total": {},
+      "total": {
+        "watch": 150,
+        "order": 80
+      },
       "note": "",
       "listPrice": 600
     },
@@ -225,7 +207,10 @@ window.PURCHASE_ALERT_SETTINGS = {
           "order": 10
         }
       },
-      "total": {},
+      "total": {
+        "watch": 150,
+        "order": 50
+      },
       "note": "",
       "listPrice": 600
     },
@@ -290,10 +275,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "醬包膜系列",
       "widthMm": 180.0,
       "thresholds": {},
-      "total": {
-        "watch": 20,
-        "order": 8
-      },
+      "total": {},
       "note": ""
     },
     "公版NY/PE醬包膜,180*400(50)": {
@@ -302,9 +284,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "series": "醬包膜系列",
       "widthMm": 180.0,
       "thresholds": {},
-      "total": {
-        "watch": 20
-      },
+      "total": {},
       "note": ""
     },
     "公版PET//CPP-MAGIC CUT,130*400": {
@@ -353,12 +333,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "三櫻系列",
       "series": "膠膜",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 60,
-          "order": 40
-        }
-      },
+      "thresholds": {},
       "total": {},
       "note": "",
       "listPrice": 600
@@ -398,12 +373,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "三櫻系列",
       "series": "膠膜",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 60,
-          "order": 40
-        }
-      },
+      "thresholds": {},
       "total": {},
       "note": "",
       "listPrice": 600
@@ -413,12 +383,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "category": "三櫻系列",
       "series": "紙膜",
       "widthMm": 130.0,
-      "thresholds": {
-        "台南倉": {
-          "watch": 60,
-          "order": 40
-        }
-      },
+      "thresholds": {},
       "total": {},
       "note": "",
       "listPrice": 900
@@ -456,7 +421,7 @@ window.PURCHASE_ALERT_SETTINGS = {
   },
   "summary": {
     "itemCount": 33,
-    "configuredCount": 24,
-    "enabledConfiguredCount": 24
+    "configuredCount": 18,
+    "enabledConfiguredCount": 18
   }
 };

@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-10-14T09:26:02",
+  "generatedAt": "2026-10-14T11:31:54",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-10-08T09:14:06",
-    "sizeBytes": 18453
+    "lastModified": "2026-10-14T11:31:40",
+    "sizeBytes": 18480
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -19,7 +19,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 150
       },
       "note": "",
-      "listPrice": 600
+      "listPrice": 500
     },
     "公版ES-透明,160*350": {
       "enabled": true,
@@ -34,7 +34,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 900
+      "listPrice": 850
     },
     "公版GPE-透明,130*350": {
       "enabled": true,
@@ -47,7 +47,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 60
       },
       "note": "",
-      "listPrice": 540
+      "listPrice": 450
     },
     "公版GPE-透明,130*450": {
       "enabled": true,
@@ -60,7 +60,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 100
       },
       "note": "",
-      "listPrice": 600
+      "listPrice": 500
     },
     "公版GPE-透明,160*500": {
       "enabled": true,
@@ -75,7 +75,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 960
+      "listPrice": 900
     },
     "公版GPE-透明,180*500": {
       "enabled": true,
@@ -90,7 +90,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 1200
+      "listPrice": 1100
     },
     "公版PP-透明,130*450": {
       "enabled": true,
@@ -103,7 +103,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 80
       },
       "note": "",
-      "listPrice": 600
+      "listPrice": 500
     },
     "公版PP-透明,160*500": {
       "enabled": true,
@@ -118,7 +118,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 960
+      "listPrice": 900
     },
     "公版PP-透明,180*500": {
       "enabled": true,
@@ -133,7 +133,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 1200
+      "listPrice": 1100
     },
     "公版PET/ES-透明,130*350": {
       "enabled": true,
@@ -151,7 +151,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 120
       },
       "note": "",
-      "listPrice": 990
+      "listPrice": 1000
     },
     "公版PET/ES-透明,160*350": {
       "enabled": true,
@@ -185,8 +185,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {
         "台南倉": {
-          "watch": 100,
-          "order": 60
+          "watch": 50,
+          "order": 20
         }
       },
       "total": {
@@ -194,7 +194,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 80
       },
       "note": "",
-      "listPrice": 600
+      "listPrice": 500
     },
     "公版GPE-消光-滿版-全黑,130*350": {
       "enabled": true,
@@ -212,7 +212,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 50
       },
       "note": "",
-      "listPrice": 600
+      "listPrice": 500
     },
     "公版GPE-透明,225*350": {
       "enabled": true,
@@ -227,7 +227,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       },
       "total": {},
       "note": "",
-      "listPrice": 1400
+      "listPrice": 1500
     },
     "私版GPE-特殊透明,180*450": {
       "enabled": true,
@@ -240,7 +240,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 20
       },
       "note": "",
-      "listPrice": 1200
+      "listPrice": 1300
     },
     "公版PP-特殊透明,180*500": {
       "enabled": true,
@@ -253,7 +253,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "order": 80
       },
       "note": "",
-      "listPrice": 1200
+      "listPrice": 1300
     },
     "公版PP-透明,225*500": {
       "enabled": true,
@@ -267,7 +267,8 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 1600
     },
     "公版NY/PE醬包膜,180*400(60)": {
       "enabled": true,
@@ -314,7 +315,8 @@ window.PURCHASE_ALERT_SETTINGS = {
       "widthMm": 130.0,
       "thresholds": {},
       "total": {},
-      "note": ""
+      "note": "",
+      "listPrice": 900
     },
     "公版PP薄醬包膜,130*400": {
       "enabled": true,

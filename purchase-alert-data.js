@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-10-20T09:10:00",
+  "generatedAt": "2026-10-20T15:51:39",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-10-14T11:31:40",
-    "sizeBytes": 18480
+    "lastModified": "2026-10-20T15:50:50",
+    "sizeBytes": 18533
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -250,7 +250,7 @@ window.PURCHASE_ALERT_SETTINGS = {
       "thresholds": {},
       "total": {
         "watch": 100,
-        "order": 80
+        "order": 60
       },
       "note": "",
       "listPrice": 1300

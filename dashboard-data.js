@@ -1,5 +1,5 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-11-03T11:51:19",
+  "generatedAt": "2026-11-03T13:53:27",
   "source": {
     "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~7.xlsx",
     "filename": "分庫狀況表- 依分庫~7.xlsx",

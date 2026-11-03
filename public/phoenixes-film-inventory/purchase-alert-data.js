@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-11-03T11:51:23",
+  "generatedAt": "2026-11-03T13:53:30",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-10-28T09:16:43",
-    "sizeBytes": 18646
+    "lastModified": "2026-11-03T13:53:17",
+    "sizeBytes": 18687
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -226,7 +226,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         }
       },
       "total": {},
-      "note": "10/27採購51卷，交期未知",
+      "note": "10/27採購100卷，交期未知",
       "listPrice": 1500
     },
     "私版GPE-特殊透明,180*450": {

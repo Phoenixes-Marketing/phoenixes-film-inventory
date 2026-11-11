@@ -1,14 +1,14 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-11-10T14:37:51",
+  "generatedAt": "2026-11-11T09:14:28",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~15.xlsx",
-    "filename": "分庫狀況表- 依分庫~15.xlsx",
-    "lastModified": "2026-11-10T14:37:44",
-    "sizeBytes": 19267,
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~16.xlsx",
+    "filename": "分庫狀況表- 依分庫~16.xlsx",
+    "lastModified": "2026-11-11T09:14:19",
+    "sizeBytes": 19269,
     "dimension": "A1:R265",
     "layout": "依分庫",
     "reportDates": [
-      "2026/11/10"
+      "2026/11/11"
     ],
     "pages": [
       "1 / 5",
@@ -237,13 +237,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 1
       },
       "warehouses": {
-        "台北倉": 631,
+        "台北倉": 625,
         "台中倉": 0,
         "台南倉": 70,
         "高雄倉": 77,
         "欣凱倉": 0
       },
-      "visibleTotal": 778,
+      "visibleTotal": 772,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -267,13 +267,13 @@ window.INVENTORY_DASHBOARD_DATA = {
         "item": 2
       },
       "warehouses": {
-        "台北倉": 22,
+        "台北倉": 18,
         "台中倉": 6,
         "台南倉": 35,
         "高雄倉": 20,
         "欣凱倉": 0
       },
-      "visibleTotal": 83,
+      "visibleTotal": 79,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -810,10 +810,10 @@ window.INVENTORY_DASHBOARD_DATA = {
         "台北倉": 37,
         "台中倉": 26.1,
         "台南倉": 24.4,
-        "高雄倉": 10.6,
-        "欣凱倉": 138
+        "高雄倉": 64.6,
+        "欣凱倉": 78
       },
-      "visibleTotal": 236.1,
+      "visibleTotal": 230.1,
       "subtotal": null,
       "otherWarehouses": {},
       "otherTotal": 0
@@ -1141,13 +1141,13 @@ window.INVENTORY_DASHBOARD_DATA = {
     },
     "unmatchedItems": [],
     "warehouseTotals": {
-      "台北倉": 1527.35,
+      "台北倉": 1517.35,
       "台中倉": 552.05,
       "台南倉": 1433.83,
-      "高雄倉": 378,
-      "欣凱倉": 332
+      "高雄倉": 432,
+      "欣凱倉": 272
     },
-    "visibleGrandTotal": 4223.23,
+    "visibleGrandTotal": 4207.23,
     "hiddenWarehouseTotals": {},
     "hiddenStockItemCount": 0,
     "warehouseRowsFound": {

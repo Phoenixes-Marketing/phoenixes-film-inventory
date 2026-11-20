@@ -1,9 +1,9 @@
 window.INVENTORY_DASHBOARD_DATA = {
-  "generatedAt": "2026-11-20T09:24:14",
+  "generatedAt": "2026-11-20T14:58:31",
   "source": {
-    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~27.xlsx",
-    "filename": "分庫狀況表- 依分庫~27.xlsx",
-    "lastModified": "2026-11-20T09:24:00",
+    "path": "Z:\\TO承憲\\ERP\\IACF\\分庫狀況表- 依分庫~28.xlsx",
+    "filename": "分庫狀況表- 依分庫~28.xlsx",
+    "lastModified": "2026-11-20T14:58:19",
     "sizeBytes": 19255,
     "dimension": "A1:R265",
     "layout": "依分庫",

@@ -1,11 +1,11 @@
 window.PURCHASE_ALERT_SETTINGS = {
-  "generatedAt": "2026-11-24T09:19:14",
+  "generatedAt": "2026-11-24T10:06:41",
   "source": {
     "path": "D:\\封王封膜庫存監控\\data\\採購提醒設定.xlsx",
     "filename": "採購提醒設定.xlsx",
     "engine": "python-calamine",
-    "lastModified": "2026-11-19T15:38:08",
-    "sizeBytes": 18791
+    "lastModified": "2026-11-24T10:06:34",
+    "sizeBytes": 18865
   },
   "settings": {
     "公版ES-透明,130*290(金)": {
@@ -141,7 +141,7 @@ window.PURCHASE_ALERT_SETTINGS = {
         "watch": 150,
         "order": 120
       },
-      "note": ""
+      "note": "智維預定出貨:114卷"
     },
     "公版PET/ES-透明,160*350": {
       "enabled": true,
